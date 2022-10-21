@@ -1,7 +1,0 @@
-server:
-  port: 8029
-
-logging:
-  level:
-    com.mnijdam.kafkatriage: DEBUG
-#    root: debug
