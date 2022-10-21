@@ -10,4 +10,8 @@ spring:
     url: r2dbc:postgresql://localhost:5432/kafka-triage
     username: rootuser
     password: rootpass
+  flyway:
+    url: jdbc:postgresql://localhost:5432/kafka-triage
+    user: rootuser
+    password: rootpass
 
