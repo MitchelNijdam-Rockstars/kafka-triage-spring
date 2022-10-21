@@ -1,13 +1,8 @@
 package com.mnijdam.kafkatriage.record
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.ManyToOne
+import jakarta.persistence.*
 import org.apache.kafka.common.header.internals.RecordHeader
-import org.kafkatriage.records.Record
-import org.springframework.data.annotation.Id
 import java.nio.ByteBuffer
 
 @Entity
@@ -15,7 +10,8 @@ data class Header(
     val key: String,
     val value: String,
     val native: Boolean,
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @JsonIgnore val id: Int? = null
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @JsonIgnore val id: Long? = null,
 ) {
     @ManyToOne(optional = false)
     @JsonIgnore

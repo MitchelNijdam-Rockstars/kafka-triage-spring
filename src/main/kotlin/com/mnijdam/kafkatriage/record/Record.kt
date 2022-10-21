@@ -1,23 +1,19 @@
-package org.kafkatriage.records
+package com.mnijdam.kafkatriage.record
 
 import com.fasterxml.jackson.annotation.JsonIgnore
-import com.mnijdam.kafkatriage.record.Header
 import com.mnijdam.kafkatriage.record.Header.Companion.fromEmbeddedHeader
 import com.mnijdam.kafkatriage.record.Header.Companion.fromKafkaHeader
 import jakarta.persistence.*
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.springframework.cloud.stream.binder.EmbeddedHeaderUtils
-import org.springframework.data.annotation.Id
-import org.springframework.data.relational.core.mapping.Column
-import org.springframework.data.relational.core.mapping.Table
 import org.springframework.messaging.support.GenericMessage
 
 @Entity
-@Table("record")
+@Table(indexes = [Index(name = "record_triaged_idx", columnList = "triaged")])
 data class Record(
     val topic: String,
     val partition: Int,
-    @Column(value = "\"offset\"") val offset: Long,
+    @Column(name = "\"offset\"") val offset: Long,
     val timestamp: Long? = null,
     val key: String?,
     val value: String?,
@@ -29,7 +25,8 @@ data class Record(
 
     var triaged: Boolean = false,
     var replayedOffset: Long? = null,
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @JsonIgnore val id: Int? = null
+
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @JsonIgnore val id: Long? = null
 ) {
 
     companion object {

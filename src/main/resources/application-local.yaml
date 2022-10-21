@@ -4,4 +4,4 @@ server:
 logging:
   level:
     com.mnijdam.kafkatriage: DEBUG
-    root: debug
+#    root: debug
