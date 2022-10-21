@@ -1,9 +1,8 @@
 package com.mnijdam.kafkatriage
 
+import com.mnijdam.kafkatriage.record.RecordRepository
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
-import org.springframework.data.annotation.Id
-import org.springframework.data.repository.kotlin.CoroutineCrudRepository
 import org.springframework.web.bind.annotation.GetMapping
 
 @SpringBootApplication
@@ -17,10 +16,3 @@ fun main(args: Array<String>) {
     runApplication<KafkaTriageApplication>(*args)
 }
 
-interface RecordRepository : CoroutineCrudRepository<Record, String>
-
-data class Record(
-	@Id
-	val id: String?,
-	val topic: String
-)
