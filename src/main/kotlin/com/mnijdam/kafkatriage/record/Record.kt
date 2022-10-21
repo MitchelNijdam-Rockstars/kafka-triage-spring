@@ -31,12 +31,14 @@ data class Record(
 
     companion object {
         fun <K, V> fromConsumerRecord(cr: ConsumerRecord<K, V>): Record {
-            val value = cr.value() as? ByteArray?
+            val value = when (cr.value()) {
+                is String -> (cr.value() as String).toByteArray()
+                else -> cr.value() as ByteArray?
+            }
             var embeddedHeaders: List<Header> = listOf()
             var embeddedPayload: ByteArray? = null
             if (value != null && EmbeddedHeaderUtils.mayHaveEmbeddedHeaders(value)) {
                 try {
-                    // why does it have to be private?
                     val springMessage = GenericMessage<ByteArray>(value)
                     val messageValues = EmbeddedHeaderUtils.extractHeaders(springMessage, false)
                     embeddedHeaders = messageValues.headers.map(::fromEmbeddedHeader)
