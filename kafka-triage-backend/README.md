@@ -1,4 +1,4 @@
-# Kafka Triage
+# Kafka Triage Backend
 
 Triage your failed Kafka messages with this application. View, replay, discard and monitor the
 records published on a Dead Letter Topic.
