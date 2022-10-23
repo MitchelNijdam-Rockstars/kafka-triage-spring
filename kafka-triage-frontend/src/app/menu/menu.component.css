@@ -1,0 +1,23 @@
+.menu-wrapper {
+  border-right: 1px solid grey;
+  height: 100%;
+  min-width: 10%;
+  max-width: 20%;
+  float: left;
+  background-color: #f5f5f5;
+}
+
+.menu-wrapper a {
+  display: block;
+  text-decoration: none;
+  color: black;
+  margin: 0.5rem;
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
+
+.mat-list-base {
+  padding: 0 !important;
+}
