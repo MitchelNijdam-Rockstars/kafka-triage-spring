@@ -14,13 +14,18 @@ import { MatTableModule } from "@angular/material/table";
 import { HttpClientModule } from "@angular/common/http";
 import { BASE_PATH_KAFKA_TRIAGE_BACKEND } from "./errors/error.service";
 import { environment } from "../environments/environment";
+import { ToastComponent } from "./toast/toast.component";
+import { NgbToastModule } from "@ng-bootstrap/ng-bootstrap";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { MatSidenavModule } from "@angular/material/sidenav";
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
     TopicsViewComponent,
-    ErrorsViewComponent
+    ErrorsViewComponent,
+    ToastComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +35,10 @@ import { environment } from "../environments/environment";
     RouterModule,
     AppRoutingModule,
     MatTableModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbToastModule,
+    MatToolbarModule,
+    MatSidenavModule
   ],
   providers: [
     {

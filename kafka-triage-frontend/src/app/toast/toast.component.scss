@@ -1,0 +1,17 @@
+:host {
+  position: fixed;
+  width: 100%;
+  bottom: 2em;
+  z-index: 1200;
+}
+
+ngb-toast {
+  margin-left: auto;
+  margin-right: auto;
+  color: #0f161f;
+}
+
+.error {
+  background-color: var(--kiw-error);
+  color: var(--opfab-text-color-stronger);
+}

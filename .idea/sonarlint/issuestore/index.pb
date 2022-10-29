@@ -1,0 +1,25 @@
+
+†
+Vkafka-triage-backend/src/main/kotlin/com/mnijdam/kafkatriage/KafkaTriageApplication.kt,b\8\b8a9489f63c43a874adfb284b5cde82b5bd0f03b
+[
++.idea/modules/kafka-triage-backend.test.iml,9\7\97a415516e59f7e6d86dab49db34ad7e5e359b81
+U
+%kafka-triage-backend/build.gradle.kts,9\0\90be16fb1e6646b74d325cb5908a3ab5939c8bc7
+O
+kafka-triage-frontend/README.md,2\f\2fc00dae05f7b4ac4147ef7cbdf9a79521b97d3d
+i
+9kafka-triage-frontend/src/app/menu/menu.component.spec.ts,9\5\954bb62ea117485041bfd18ff09bf070b0160497
+c
+3kafka-triage-frontend/src/app/app-routing.module.ts,e\4\e4079ad774049b52c69b5b1ebb8cd2ebaeb70cd5
+e
+5kafka-triage-frontend/src/environments/environment.ts,8\5\852973c91091b3ba76d1fa207196b7f7c2a88698
+j
+:kafka-triage-frontend/src/app/errors/error.service.spec.ts,0\6\06164945ebdde2bc4477707a2707dbeca8085b52
+c
+3kafka-triage-frontend/src/app/errors/ErrorRecord.ts,e\f\efddcab016332d7514d6f23f19f27233899bcf70
+~
+Nkafka-triage-frontend/src/app/errors/errors-view/errors-view.component.spec.ts,b\e\bec85ee40825a4e0dd5544e304ccb24845bcfd01
+j
+:kafka-triage-frontend/src/app/topics/topic.service.spec.ts,0\a\0a8dc6596651d5578655606af73e657b4582924f
+~
+Nkafka-triage-frontend/src/app/topics/topics-view/topics-view.component.spec.ts,f\f\ffc5867db4605fa14f0bbb135603b4abd773a6b2

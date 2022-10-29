@@ -1,16 +1,12 @@
 .menu-wrapper {
-  border-right: 1px solid grey;
   height: 100%;
-  min-width: 15%;
-  max-width: 20%;
-  float: left;
-  background-color: #f5f5f5;
+  background-color: #192a6f;
 }
 
 .menu-wrapper a {
   display: block;
   text-decoration: none;
-  color: black;
+  color: white;
 }
 
 .mat-icon {
@@ -24,6 +20,7 @@
 .mat-list-item {
   font-size: large;
 }
+
 .mat-list-item:hover {
-  background-color: #e0e0e0;
+  background-color: #121e52;
 }

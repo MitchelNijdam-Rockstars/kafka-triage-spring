@@ -7,27 +7,15 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.toolbar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3.5rem;
-  line-height: 3.5rem;
-  padding: 0 1rem;
-  background-color: #1976d2;
-  color: white;
+.main-view {
+  height: 100%;
+  display: flex;
 }
 
-.toolbar-title {
-  font-size: xx-large;
-}
-
-.toolbar img {
-  margin: 0 16px;
+.menu {
+  width: 10rem;
 }
 
 .content {
-  height: 100% !important;
-  margin: 3.5rem 0 0;
+  flex-grow: 1;
 }

@@ -26,6 +26,6 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('kafka-triage-frontend app is running!');
+    expect(compiled.querySelector('.main-view span')?.textContent).toContain('kafka-triage-frontend app is running!');
   });
 });

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ErrorTopic } from "../ErrorTopic";
+import { TopicService } from "../topic.service";
 
 @Component({
   selector: 'kt-topics-view',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopicsViewComponent implements OnInit {
 
-  constructor() { }
+  displayedColumns: string[] = ['name', 'lag'];
+  topics: ErrorTopic[] = [];
+
+  constructor(private topicService: TopicService) {
+  }
 
   ngOnInit(): void {
+    this.topicService.getErrors().subscribe(topics => this.topics = topics);
   }
 
 }
