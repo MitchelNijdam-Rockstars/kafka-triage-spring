@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'kt-menu',
@@ -8,3 +8,4 @@ import { Component } from '@angular/core';
 export class MenuComponent {
 
 }
+

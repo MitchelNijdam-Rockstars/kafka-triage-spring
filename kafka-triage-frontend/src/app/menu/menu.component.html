@@ -1,6 +1,16 @@
 <div class="menu-wrapper">
+  <div class="title">
+    <h1>Kafka Triage</h1>
+  </div>
+  <mat-divider></mat-divider>
   <mat-list>
-    <a mat-list-item href="/topics">Topics</a>
-    <a mat-list-item href="/errors">Errors</a>
+    <a mat-list-item routerLink="/topics" routerLinkActive="selected">
+      <mat-icon>topic</mat-icon>
+      Topics
+    </a>
+    <a mat-list-item routerLink="/errors" routerLinkActive="selected">
+      <mat-icon>crisis_alert</mat-icon>
+      Errors
+    </a>
   </mat-list>
 </div>
