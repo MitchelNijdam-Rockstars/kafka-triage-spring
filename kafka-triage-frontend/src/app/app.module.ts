@@ -12,7 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ErrorsViewComponent } from './errors/errors-view/errors-view.component';
 import { MatTableModule } from "@angular/material/table";
 import { HttpClientModule } from "@angular/common/http";
-import { BASE_PATH_KAFKA_TRIAGE_BACKEND } from "./errors/error.service";
+import { BASE_PATH_KAFKA_TRIAGE_BACKEND } from "./errors/error-record.service";
 import { environment } from "../environments/environment";
 import { ToastComponent } from "./toast/toast.component";
 import { NgbToastModule } from "@ng-bootstrap/ng-bootstrap";

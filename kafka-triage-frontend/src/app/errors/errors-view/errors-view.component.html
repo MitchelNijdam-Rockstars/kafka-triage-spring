@@ -3,7 +3,9 @@
   <table mat-table matSort [dataSource]="errorRecordsDataSource">
     <ng-container matColumnDef="timestamp">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Timestamp</th>
-      <td mat-cell *matCellDef="let element">{{element.timestamp | date: 'dd-MM-yy, HH:mm:ss.SSS' }}</td>
+      <td mat-cell *matCellDef="let element">
+        {{element.timestamp | date: 'dd-MM-yy, HH:mm:ss.SSS' }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="topic">
@@ -11,9 +13,16 @@
       <td mat-cell *matCellDef="let element">{{element.topic}}</td>
     </ng-container>
 
-    <ng-container matColumnDef="partition">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Partition</th>
-      <td mat-cell *matCellDef="let element">{{element.partition }}</td>
+    <ng-container matColumnDef="cause">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Cause</th>
+      <td mat-cell *matCellDef="let element">{{getErrorCause(element)}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="value">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Value</th>
+      <td mat-cell *matCellDef="let element">
+        {{(element.value.length > 50) ? (element.value | slice:0:50) + '...' : (element.value)}}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="offset">

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { ErrorService } from "../error.service";
+import { ErrorRecordService } from "../error-record.service";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatSort } from "@angular/material/sort";
 import { ErrorRecord } from "../ErrorRecord";
@@ -11,17 +11,18 @@ import { ErrorRecord } from "../ErrorRecord";
 })
 export class ErrorsViewComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['timestamp', 'topic', 'partition', 'offset', 'triaged'];
+  displayedColumns: string[] = ['timestamp', 'topic', 'cause', 'value', 'offset', 'triaged'];
   errorRecordsDataSource = new MatTableDataSource();
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private errorService: ErrorService) {
+  constructor(private errorService: ErrorRecordService) {
   }
 
   ngOnInit(): void {
-    this.errorService.getErrors().subscribe({
+    this.errorService.getErrorRecords().subscribe({
       next: errorRecords => {
+        console.table(errorRecords);
         errorRecords.sort((a, b) => this.sortErrorRecords(a, b));
         this.errorRecordsDataSource.data = errorRecords;
       }
@@ -34,5 +35,15 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
 
   private sortErrorRecords(a: ErrorRecord, b: ErrorRecord) {
     return a.timestamp - b.timestamp ? -1 : 1;
+  }
+
+  getErrorCause(errorRecord: ErrorRecord): string {
+    if (errorRecord.headers && errorRecord.headers.length > 0) {
+      const causeHeader = errorRecord.headers.find(header => header.key === "kafka_dlt-exception-cause-fqcn");
+      if (causeHeader) {
+        return causeHeader.value;
+      }
+    }
+    return '';
   }
 }

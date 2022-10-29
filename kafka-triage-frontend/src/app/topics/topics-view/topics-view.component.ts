@@ -32,10 +32,10 @@ export class TopicsViewComponent implements OnInit, AfterViewInit {
 
   // Sort topics by lag, then by name
   private sortTopics(a: ErrorTopic, b: ErrorTopic) {
-    if (a.lag === b.lag) {
-      return a.name.localeCompare(b.name);
+    if (a.lag !== b.lag) {
+      return b.lag - a.lag > 0 ? 1 : -1;
     }
-    return a.lag + b.lag;
+    return a.name.localeCompare(b.name) > 0 ? 1 : -1;
   }
 
 }

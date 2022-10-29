@@ -1,7 +1,7 @@
 import { Inject, Injectable, Optional } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { catchError, Observable } from "rxjs";
-import { BASE_PATH_KAFKA_TRIAGE_BACKEND } from "../errors/error.service";
+import { BASE_PATH_KAFKA_TRIAGE_BACKEND } from "../errors/error-record.service";
 import { ErrorTopic } from "./ErrorTopic";
 import { ToastService } from "../toast/toast.service";
 

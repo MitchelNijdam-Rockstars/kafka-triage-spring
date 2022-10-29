@@ -9,7 +9,7 @@ export const BASE_PATH_KAFKA_TRIAGE_BACKEND = new InjectionToken<string>('basePa
 @Injectable({
   providedIn: 'root'
 })
-export class ErrorService {
+export class ErrorRecordService {
   baseUrl: string;
 
   constructor(@Optional() @Inject(BASE_PATH_KAFKA_TRIAGE_BACKEND) basePath: string,
@@ -18,7 +18,7 @@ export class ErrorService {
     this.baseUrl = basePath;
   }
 
-  getErrors(): Observable<ErrorRecord[]> {
+  getErrorRecords(): Observable<ErrorRecord[]> {
     return this.http.get<ErrorRecord[]>(this.baseUrl + '/records/').pipe(
       catchError((error) => {
         console.error(error);
