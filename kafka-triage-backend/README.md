@@ -7,7 +7,7 @@ records published on a Dead Letter ErrorTopic.
 
 Kafka triage consumes all records from Dead Letter Topics matching the pattern `.+\.DLT$`. Each
 message is saved in the postgres database. The application provides a web interface to view the
-messages and perform actions on them.
+messages and perform actions on them, like replaying them to the original topic or discarding.
 
 ## Running the project
 
@@ -21,7 +21,17 @@ messages and perform actions on them.
     ```
 3. Open the application in your browser: [http://localhost:8080](http://localhost:8080)
 
-### PostgresQL
+## Manual testing
+
+Install the CLI tool [kcat (formerly kafkacat)](https://github.com/edenhill/kcat)
+
+Produce some messages to the topic `test.DLT`:
+
+```bash
+kafkacat -b localhost:29092 -t test.DLT -P
+```
+
+## PostgresQL
 
 The application uses a postgres database to store the messages. The database is started with
 docker compose. The database is exposed on port `5432` and the credentials are:

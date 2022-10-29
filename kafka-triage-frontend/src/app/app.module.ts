@@ -18,6 +18,7 @@ import { ToastComponent } from "./toast/toast.component";
 import { NgbToastModule } from "@ng-bootstrap/ng-bootstrap";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatSortModule } from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MatSidenavModule } from "@angular/material/sidenav";
     HttpClientModule,
     NgbToastModule,
     MatToolbarModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatSortModule
   ],
   providers: [
     {
