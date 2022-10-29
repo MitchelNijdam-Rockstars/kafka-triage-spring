@@ -5,3 +5,20 @@
 table {
   width: 100%;
 }
+
+.error-record-details {
+  overflow: hidden;
+  display: flex;
+}
+
+tr.detail-row {
+  height: 0;
+}
+
+tr.error-record-row:not(.expanded-row):hover {
+  background: #333;
+}
+
+tr.error-record-row {
+  cursor: pointer;
+}

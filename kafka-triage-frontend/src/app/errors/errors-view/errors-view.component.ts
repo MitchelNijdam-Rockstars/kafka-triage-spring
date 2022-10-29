@@ -3,16 +3,25 @@ import { ErrorRecordService } from "../error-record.service";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatSort } from "@angular/material/sort";
 import { ErrorRecord } from "../ErrorRecord";
+import { animate, state, style, transition, trigger } from "@angular/animations";
 
 @Component({
   selector: 'kt-errors-view',
   templateUrl: './errors-view.component.html',
-  styleUrls: ['./errors-view.component.css']
+  styleUrls: ['./errors-view.component.css'],
+  animations: [
+    trigger('detailExpand', [
+      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('expanded', style({height: '*'})),
+      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+  ],
 })
 export class ErrorsViewComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['timestamp', 'topic', 'cause', 'value', 'offset', 'triaged'];
   errorRecordsDataSource = new MatTableDataSource();
+  expandedErrorRecord: ErrorRecord | null;
 
   @ViewChild(MatSort) sort: MatSort;
 
