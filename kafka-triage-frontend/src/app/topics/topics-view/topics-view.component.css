@@ -1,1 +1,7 @@
+.data {
+  display: flex;
+}
 
+table {
+  width: 100%;
+}
