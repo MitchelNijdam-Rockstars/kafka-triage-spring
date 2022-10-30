@@ -1,7 +1,11 @@
-.data {
-  display: flex;
-}
-
 table {
   width: 100%;
+}
+
+.title {
+  float: left;
+}
+
+.refresh-button {
+  float: right;
 }

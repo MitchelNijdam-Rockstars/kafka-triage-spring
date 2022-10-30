@@ -1,6 +1,22 @@
-.data {
-  display: flex;
+.title {
+  float: left;
 }
+
+.action-button {
+  float: right;
+  margin-left: 1rem;
+}
+
+.replay-button {
+  background-color: #4CAF50;
+}
+
+/*.refresh-button mat-icon:hover{*/
+/*  color: red;*/
+/*  transform: rotate(360deg);*/
+/*  transition-duration: 0.8s;*/
+/*  transition-property: transform;*/
+/*}*/
 
 table {
   width: 100%;
@@ -36,3 +52,7 @@ tr.error-record-row {
 .error-record-details-value {
   /*  TODO: when stacktrace is opened the page shifts, try to make it scrollable instead */
 }
+
+/*.refresh-button{*/
+/*  float:right;*/
+/*}*/

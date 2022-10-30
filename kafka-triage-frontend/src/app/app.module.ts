@@ -20,6 +20,7 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSortModule } from "@angular/material/sort";
 import { MatTabsModule } from "@angular/material/tabs";
+import { MatButtonModule } from "@angular/material/button";
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { MatTabsModule } from "@angular/material/tabs";
     MatToolbarModule,
     MatSidenavModule,
     MatSortModule,
-    MatTabsModule
+    MatTabsModule,
+    MatButtonModule
   ],
   providers: [
     {
