@@ -8,7 +8,7 @@ export class ErrorRecord {
   offset!: number
   triaged!: boolean
   replayedOffset?: number
-  headers!: ErrorRecordHeader[]
+  headers?: ErrorRecordHeader[]
 }
 
 export class ErrorRecordHeader {

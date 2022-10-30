@@ -8,17 +8,31 @@ table {
 
 .error-record-details {
   overflow: hidden;
-  display: flex;
+  padding: 1rem 0;
 }
 
 tr.detail-row {
   height: 0;
 }
 
-tr.error-record-row:not(.expanded-row):hover {
+tr.error-record-row:not(.expanded-row):hover,
+tr.error-record-row.expanded-row {
   background: #333;
 }
 
 tr.error-record-row {
   cursor: pointer;
+}
+
+.error-record-details-metadata tr td {
+  padding-right: 0.5rem;
+}
+
+.error-record-details-metadata h3 {
+  margin: 0;
+  font-weight: bold;
+}
+
+.error-record-details-value {
+  /*  TODO: when stacktrace is opened the page shifts, try to make it scrollable instead */
 }

@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { ErrorRecordService } from "../error-record.service";
 import { MatTableDataSource } from "@angular/material/table";
 import { MatSort } from "@angular/material/sort";
-import { ErrorRecord } from "../ErrorRecord";
+import { ErrorRecord, ErrorRecordHeader } from "../ErrorRecord";
 import { animate, state, style, transition, trigger } from "@angular/animations";
 
 @Component({
@@ -11,7 +11,7 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
   styleUrls: ['./errors-view.component.css'],
   animations: [
     trigger('detailExpand', [
-      state('collapsed', style({height: '0px', minHeight: '0'})),
+      state('collapsed', style({height: '0px', minHeight: '0', padding: '0'})),
       state('expanded', style({height: '*'})),
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ]),
@@ -47,12 +47,35 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   }
 
   getErrorCause(errorRecord: ErrorRecord): string {
-    if (errorRecord.headers && errorRecord.headers.length > 0) {
-      const causeHeader = errorRecord.headers.find(header => header.key === "kafka_dlt-exception-cause-fqcn");
-      if (causeHeader) {
-        return causeHeader.value;
-      }
-    }
-    return '';
+    return this.findHeader(errorRecord, "kafka_dlt-exception-cause-fqcn");
+  }
+
+  getOriginalTopic(errorRecord: ErrorRecord): string {
+    return this.findHeader(errorRecord, "kafka_dlt-original-topic");
+  }
+
+  getOriginalPartition(errorRecord: ErrorRecord): string {
+    return this.findHeader(errorRecord, "kafka_dlt-original-partition");
+  }
+
+  getOriginalOffset(errorRecord: ErrorRecord): string {
+    return this.findHeader(errorRecord, "kafka_dlt-original-offset");
+  }
+
+  getOriginalTimestamp(errorRecord: ErrorRecord): string {
+    return this.findHeader(errorRecord, "kafka_dlt-original-timestamp");
+  }
+
+  getOriginalConsumerGroup(errorRecord: ErrorRecord): string {
+    return this.findHeader(errorRecord, "kafka_dlt-original-consumer-group");
+  }
+
+  getStacktrace(errorRecord: ErrorRecord): string {
+    return this.findHeader(errorRecord, "kafka_dlt-exception-stacktrace");
+  }
+
+  private findHeader(errorRecord: ErrorRecord, key: string) {
+    return errorRecord.headers
+    ?.find(header => header.key === key)?.value || '';
   }
 }

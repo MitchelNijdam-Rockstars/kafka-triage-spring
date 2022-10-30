@@ -15,8 +15,6 @@ e
 5kafka-triage-frontend/src/environments/environment.ts,8\5\852973c91091b3ba76d1fa207196b7f7c2a88698
 j
 :kafka-triage-frontend/src/app/errors/error.service.spec.ts,0\6\06164945ebdde2bc4477707a2707dbeca8085b52
-c
-3kafka-triage-frontend/src/app/errors/ErrorRecord.ts,e\f\efddcab016332d7514d6f23f19f27233899bcf70
 ~
 Nkafka-triage-frontend/src/app/errors/errors-view/errors-view.component.spec.ts,b\e\bec85ee40825a4e0dd5544e304ccb24845bcfd01
 j

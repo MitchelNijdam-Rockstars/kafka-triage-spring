@@ -19,6 +19,7 @@ import { NgbToastModule } from "@ng-bootstrap/ng-bootstrap";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatSortModule } from "@angular/material/sort";
+import { MatTabsModule } from "@angular/material/tabs";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { MatSortModule } from "@angular/material/sort";
     NgbToastModule,
     MatToolbarModule,
     MatSidenavModule,
-    MatSortModule
+    MatSortModule,
+    MatTabsModule
   ],
   providers: [
     {
