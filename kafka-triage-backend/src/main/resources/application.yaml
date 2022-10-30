@@ -3,10 +3,23 @@ spring:
     bootstrap-servers: localhost:29092
     consumer:
       group-id: kafka-triage
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+    producer:
+      properties:
+        linger.ms: 1
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+    listener:
+      ack-mode: record
   datasource:
     url: jdbc:postgresql://localhost:5432/kafka-triage
     username: rootuser
     password: rootpass
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: validate
   flyway:
     url: ${spring.datasource.url}
     user: ${spring.datasource.username}

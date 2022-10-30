@@ -26,7 +26,7 @@ data class Record(
     var triaged: Boolean = false,
     var replayedOffset: Long? = null,
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) @JsonIgnore val id: Long? = null
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Long? = null
 ) {
 
     companion object {

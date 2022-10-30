@@ -59,7 +59,7 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
 
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.errorRecordsDataSource.data.length;
+    const numRows = this.errorRecordsDataSource.data.filter(r => !r.triaged).length;
     return numSelected === numRows;
   }
 
@@ -69,7 +69,7 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.selection.select(...this.errorRecordsDataSource.data);
+    this.selection.select(...this.errorRecordsDataSource.data.filter(r => !r.triaged));
   }
 
   checkboxLabel(row?: ErrorRecord): string {
@@ -128,7 +128,20 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   }
 
   replayRecords() {
-    console.log("Replaying all selected records", this.selection.selected);
+    const hasSelection = this.selection.selected.length > 0;
+    if (!hasSelection) {
+      this.toastService.showInfo("No records selected");
+      return;
+    }
+
+    if (confirm("Are you sure you want to replay all selected records?")) {
+      this.errorService.replay(this.selection.selected.map(r => r.id)).subscribe({
+        next: () => {
+          this.refreshRecords();
+          this.selection.clear();
+        }
+      });
+    }
   }
 
   private findHeader(errorRecord: ErrorRecord, key: string) {

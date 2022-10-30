@@ -11,13 +11,6 @@
   background-color: var(--kt-success);
 }
 
-/*.refresh-button mat-icon:hover{*/
-/*  color: red;*/
-/*  transform: rotate(360deg);*/
-/*  transition-duration: 0.8s;*/
-/*  transition-property: transform;*/
-/*}*/
-
 table {
   width: 100%;
 }
@@ -40,6 +33,10 @@ tr.error-record-row {
   cursor: pointer;
 }
 
+tr.triaged .mat-cell {
+  color: #a9a9a9;
+}
+
 .error-record-details-metadata tr td {
   padding-right: 0.5rem;
 }
@@ -52,7 +49,3 @@ tr.error-record-row {
 .error-record-details-value {
   /*  TODO: when stacktrace is opened the page shifts, try to make it scrollable instead */
 }
-
-/*.refresh-button{*/
-/*  float:right;*/
-/*}*/

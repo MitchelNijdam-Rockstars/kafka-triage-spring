@@ -13,5 +13,13 @@ interface RecordRepository: JpaRepository<Record, Long> {
     @Modifying
     @Transactional
     @Query("update Record set triaged=true where id in :ids")
-    fun discard(ids: List<Long>)
+    fun markTriaged(ids: List<Long>)
+
+    @Query("select r from Record r where triaged=false and id in :ids")
+    fun findAllByIdUntriaged(ids: List<Long>): List<Record>
+
+    @Modifying
+    @Transactional
+    @Query("update Record set replayedOffset=:replayedOffset where id=:id")
+    fun setReplayedOffset(id: Long, replayedOffset: Long)
 }
