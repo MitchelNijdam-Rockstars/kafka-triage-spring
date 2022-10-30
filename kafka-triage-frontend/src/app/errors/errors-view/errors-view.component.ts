@@ -4,6 +4,8 @@ import { MatTableDataSource } from "@angular/material/table";
 import { MatSort } from "@angular/material/sort";
 import { ErrorRecord } from "../ErrorRecord";
 import { animate, state, style, transition, trigger } from "@angular/animations";
+import { SelectionModel } from "@angular/cdk/collections";
+import { ToastService } from "../../toast/toast.service";
 
 @Component({
   selector: 'kt-errors-view',
@@ -23,14 +25,15 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
 })
 export class ErrorsViewComponent implements OnInit, AfterViewInit {
 
-  displayedColumns: string[] = ['timestamp', 'topic', 'cause', 'value', 'offset', 'triaged'];
-  errorRecordsDataSource = new MatTableDataSource();
+  displayedColumns: string[] = ['select', 'timestamp', 'topic', 'cause', 'value', 'offset', 'triaged'];
+  errorRecordsDataSource = new MatTableDataSource<ErrorRecord>();
   expandedErrorRecord: ErrorRecord | null;
+  selection = new SelectionModel<ErrorRecord>(true, []);
   isRefreshing = false;
 
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private errorService: ErrorRecordService) {
+  constructor(private errorService: ErrorRecordService, private toastService: ToastService) {
   }
 
   ngOnInit(): void {
@@ -52,6 +55,28 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
         this.isRefreshing = false;
       }
     });
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.errorRecordsDataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  toggleAllRows() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
+    }
+
+    this.selection.select(...this.errorRecordsDataSource.data);
+  }
+
+  checkboxLabel(row?: ErrorRecord): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
   }
 
   private sortErrorRecords(a: ErrorRecord, b: ErrorRecord) {
@@ -87,11 +112,23 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   }
 
   discardRecords() {
-    console.log("Discarding all selected records");
+    const hasSelection = this.selection.selected.length > 0;
+    if (!hasSelection) {
+      this.toastService.showInfo("No records selected");
+      return;
+    }
+    if (confirm("Are you sure you want to discard all selected records?")) {
+      this.errorService.discard(this.selection.selected.map(r => r.id)).subscribe({
+        next: () => {
+          this.refreshRecords();
+          this.selection.clear();
+        }
+      });
+    }
   }
 
   replayRecords() {
-    console.log("Replaying all selected records");
+    console.log("Replaying all selected records", this.selection.selected);
   }
 
   private findHeader(errorRecord: ErrorRecord, key: string) {

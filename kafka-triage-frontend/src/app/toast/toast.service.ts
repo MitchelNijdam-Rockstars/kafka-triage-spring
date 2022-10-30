@@ -18,6 +18,10 @@ export class ToastService {
     this.show('SUCCESS', body);
   }
 
+  showInfo(body: string) {
+    this.show('INFO', body);
+  }
+
   remove(toast: any) {
     this.toasts = this.toasts.filter((t) => t != toast);
   }

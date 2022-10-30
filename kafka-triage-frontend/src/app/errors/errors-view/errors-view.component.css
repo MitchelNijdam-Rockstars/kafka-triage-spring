@@ -8,7 +8,7 @@
 }
 
 .replay-button {
-  background-color: #4CAF50;
+  background-color: var(--kt-success);
 }
 
 /*.refresh-button mat-icon:hover{*/

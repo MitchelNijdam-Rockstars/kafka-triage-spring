@@ -27,4 +27,24 @@ export class ErrorRecordService {
       })
     );
   }
+
+  discard(ids: number[]) {
+    return this.http.post(this.baseUrl + '/records/discard', ids).pipe(
+      catchError((error) => {
+        console.error(error);
+        this.toastService.showError("Failed to discard records");
+        throw error;
+      })
+    );
+  }
+
+  replay(ids: number[]) {
+    return this.http.post(this.baseUrl + '/records/replay', ids).pipe(
+      catchError((error) => {
+        console.error(error);
+        this.toastService.showError("Failed to replay records");
+        throw error;
+      })
+    );
+  }
 }

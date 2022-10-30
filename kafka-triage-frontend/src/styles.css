@@ -1,9 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+:root {
+  --kt-primary: #192a6f;
+  --kt-primary-darker: #121e52;
+  --kt-accent: #f44336;
+  --kt-error: var(--kt-accent);
+  --kt-success: #4CAF50;
+  --kt-warning: #ff9800;
+}
 
 .mat-divider {
   color: grey !important;
   background-color: grey !important;
+}
+
+
+.toast-header {
+  text-align: center !important;
+  padding: 0.5rem;
+  border-bottom: 2px solid black;
+}
+
+.toast-header button {
+  float: right;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.toast-body {
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.toast {
+  box-shadow: 0 0 5px black;
 }

@@ -1,6 +1,6 @@
 .menu-wrapper {
   height: 100%;
-  background-color: #192a6f;
+  background-color: var(--kt-primary);
   color: white;
 }
 
@@ -28,15 +28,16 @@
 }
 
 .selected {
-  border-left: 4px solid #f44336;
+  border-left: 4px solid var(--kt-accent);
 }
 
 .mat-list-item:hover {
-  background-color: #121e52;
+  background-color: var(--kt-primary-darker);
 }
 
 .mat-divider {
   border-top-color: unset !important;
-  background-color: #121e52 !important;
-  color: #121e52 !important;
+  background-color: var(--kt-primary-darker) !important;
+  color: var(--kt-primary-darker) !important;
+  border-top-width: 0.2rem;
 }

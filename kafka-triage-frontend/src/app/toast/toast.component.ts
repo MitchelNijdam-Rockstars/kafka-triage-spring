@@ -8,8 +8,13 @@ import { ToastService } from "./toast.service";
 })
 export class ToastComponent {
   toastService: ToastService;
+  show = true;
 
   constructor(toastService: ToastService) {
     this.toastService = toastService;
+  }
+
+  close() {
+    this.show = false;
   }
 }
