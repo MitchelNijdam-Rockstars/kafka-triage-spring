@@ -20,7 +20,7 @@ export class ErrorRecordService {
   }
 
   getErrorRecords(errorFilter?: ErrorRecordFilter): Observable<ErrorRecord[]> {
-    let options = {params: <HttpParams>(<unknown>errorFilter)};
+    let options = {params: <HttpParams>(<unknown>errorFilter)}; // TODO: filter undefined values
     return this.http.get<ErrorRecord[]>(this.baseUrl + '/records', options).pipe(
       catchError((error) => {
         console.error(error);

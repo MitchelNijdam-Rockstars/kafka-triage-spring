@@ -1,9 +1,10 @@
-<div class="container">
-  <div class="row">
-    <div class="col-md">
-      <h2 class="title">Errors</h2>
+<div>
+  <div>
+    <div class="float-left">
+      <h2>Errors</h2>
+      <p>Displays all errors including original record. Click to view details.</p>
     </div>
-    <div class="col-md">
+    <div class="float-right">
       <button mat-raised-button class="action-button" color="accent" (click)="refreshRecords()">
         Refresh
         <mat-icon [@refresh]="isRefreshing ? 'refreshing' : 'notRefreshing'">
@@ -23,10 +24,11 @@
         </mat-icon>
       </button>
     </div>
+    <div class="filters"><p><strong>Filters:</strong> {{createFilterLabel()}}</p></div>
   </div>
 
 
-  <div class="data row">
+  <div class="data">
     <table mat-table matSort multiTemplateDataRows [dataSource]="errorRecordsDataSource">
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>

@@ -47,7 +47,6 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
     this.route.queryParams
     .subscribe((params: any) => {
         if (params && params.topic) {
-          console.log("params", params);
           this.errorFilter = {
             topic: params.topic
           }
@@ -97,10 +96,6 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
       return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
-  }
-
-  private sortErrorRecords(a: ErrorRecord, b: ErrorRecord) {
-    return a.timestamp - b.timestamp ? -1 : 1;
   }
 
   getErrorCause(errorRecord: ErrorRecord): string {
@@ -162,6 +157,19 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
         }
       });
     }
+  }
+
+  createFilterLabel() {
+    if (this.errorFilter) {
+      return Object.entries(this.errorFilter)
+      .filter(([_, value]) => value)
+      .map(([key, value]) => `${key}=${value}`).join(", ");
+    }
+    return "None";
+  }
+
+  private sortErrorRecords(a: ErrorRecord, b: ErrorRecord) {
+    return a.timestamp - b.timestamp ? -1 : 1;
   }
 
   private findHeader(errorRecord: ErrorRecord, key: string) {
