@@ -12,7 +12,7 @@ import { ErrorRecordFilter } from "../ErrorRecordFilter";
 @Component({
   selector: 'kt-errors-view',
   templateUrl: './errors-view.component.html',
-  styleUrls: ['./errors-view.component.css'],
+  styleUrls: ['./errors-view.component.scss'],
   animations: [
     trigger('detailExpand', [
       state('collapsed', style({height: '0px', minHeight: '0', padding: '0'})),

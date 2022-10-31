@@ -8,7 +8,7 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
 @Component({
   selector: 'kt-topics-view',
   templateUrl: './topics-view.component.html',
-  styleUrls: ['./topics-view.component.css'],
+  styleUrls: ['./topics-view.component.scss'],
   animations: [
     trigger('refresh', [
       state('refreshing', style({transform: 'rotate(360deg)'})),
