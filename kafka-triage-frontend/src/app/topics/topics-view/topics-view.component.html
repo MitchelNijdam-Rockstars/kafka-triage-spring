@@ -1,10 +1,11 @@
 <div class="container">
   <div class="row">
-    <div class="col-md">
+    <div class="col-md-6 float-left">
       <h2 class="title">Topics</h2>
+      <p>Displays all topics with <strong>untriaged</strong> records.</p>
     </div>
-    <div class="col-md">
-      <button mat-raised-button class="refresh-button" (click)="refreshTopics()">
+    <div class="col-md-6 float-right">
+      <button mat-raised-button class="refresh-button" color="accent" (click)="refreshTopics()">
         Refresh
         <mat-icon [@refresh]="isRefreshing ? 'refreshing' : 'notRefreshing'">
           refresh
@@ -25,7 +26,9 @@
       </ng-container>
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"
+          class="topic-data-row"
+          routerLink="/errors" [queryParams]="{ topic: row.name }"></tr>
     </table>
   </div>
 </div>

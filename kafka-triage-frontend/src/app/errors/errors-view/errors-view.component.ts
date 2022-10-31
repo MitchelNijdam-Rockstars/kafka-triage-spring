@@ -6,6 +6,8 @@ import { ErrorRecord } from "../ErrorRecord";
 import { animate, state, style, transition, trigger } from "@angular/animations";
 import { SelectionModel } from "@angular/cdk/collections";
 import { ToastService } from "../../toast/toast.service";
+import { ActivatedRoute } from "@angular/router";
+import { ErrorRecordFilter } from "../ErrorRecordFilter";
 
 @Component({
   selector: 'kt-errors-view',
@@ -31,13 +33,31 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   selection = new SelectionModel<ErrorRecord>(true, []);
   isRefreshing = false;
 
+  private errorFilter?: ErrorRecordFilter;
+
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private errorService: ErrorRecordService, private toastService: ToastService) {
+  constructor(private errorService: ErrorRecordService,
+              private toastService: ToastService,
+              private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.refreshRecords();
+
+    this.route.queryParams
+    .subscribe((params: any) => {
+        if (params && params.topic) {
+          console.log("params", params);
+          this.errorFilter = {
+            topic: params.topic
+          }
+        } else {
+          this.errorFilter = undefined;
+        }
+
+        this.refreshRecords();
+      }
+    );
   }
 
   ngAfterViewInit(): void {
@@ -46,7 +66,7 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
 
   refreshRecords() {
     this.isRefreshing = true;
-    this.errorService.getErrorRecords().subscribe({
+    this.errorService.getErrorRecords(this.errorFilter).subscribe({
       next: async errorRecords => {
         errorRecords.sort((a, b) => this.sortErrorRecords(a, b));
         this.errorRecordsDataSource.data = errorRecords;

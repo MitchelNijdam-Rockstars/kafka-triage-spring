@@ -162,7 +162,7 @@
           [class.expanded-row]="expandedErrorRecord === element"
           (click)="expandedErrorRecord = expandedErrorRecord === element ? null : element">
       </tr>
-      <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+      <tr mat-row *matRowDef="let element; columns: ['expandedDetail']" class="detail-row"></tr>
     </table>
   </div>
 </div>

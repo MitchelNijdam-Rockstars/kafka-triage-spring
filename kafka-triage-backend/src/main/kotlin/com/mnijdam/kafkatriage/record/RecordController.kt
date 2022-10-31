@@ -10,8 +10,14 @@ class RecordController(
     private val replayService: ReplayService
 ) {
 
-    @GetMapping("/")
-    fun getRecords(): List<Record> = recordRepository.findAll()
+    @GetMapping
+    fun getRecords(@RequestParam(required = false) topic: String?): List<Record> {
+        return if (topic == null) {
+            recordRepository.findAll()
+        } else {
+            recordRepository.findByTopic(topic)
+        }
+    }
 
     @PostMapping("/discard")
     fun discardRecords(@RequestBody ids: List<Long>): Boolean {

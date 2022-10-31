@@ -1,8 +1,9 @@
 import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { catchError, Observable } from "rxjs";
 import { ErrorRecord } from "./ErrorRecord";
 import { ToastService } from "../toast/toast.service";
+import { ErrorRecordFilter } from "./ErrorRecordFilter";
 
 export const BASE_PATH_KAFKA_TRIAGE_BACKEND = new InjectionToken<string>('basePath');
 
@@ -18,8 +19,9 @@ export class ErrorRecordService {
     this.baseUrl = basePath;
   }
 
-  getErrorRecords(): Observable<ErrorRecord[]> {
-    return this.http.get<ErrorRecord[]>(this.baseUrl + '/records/').pipe(
+  getErrorRecords(errorFilter?: ErrorRecordFilter): Observable<ErrorRecord[]> {
+    let options = {params: <HttpParams>(<unknown>errorFilter)};
+    return this.http.get<ErrorRecord[]>(this.baseUrl + '/records', options).pipe(
       catchError((error) => {
         console.error(error);
         this.toastService.showError("Failed to retrieve records");

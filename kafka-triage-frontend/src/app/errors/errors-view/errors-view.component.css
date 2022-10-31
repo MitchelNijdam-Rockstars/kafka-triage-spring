@@ -26,7 +26,7 @@ tr.detail-row {
 
 tr.error-record-row:not(.expanded-row):hover,
 tr.error-record-row.expanded-row {
-  background: #333;
+  background: var(--kt-table-hover);
 }
 
 tr.error-record-row {

@@ -16,6 +16,8 @@ body {
   --kt-error: var(--kt-accent);
   --kt-success: #4CAF50;
   --kt-warning: #ff9800;
+
+  --kt-table-hover: #333;
 }
 
 .mat-divider {
@@ -43,4 +45,26 @@ body {
 
 .toast {
   box-shadow: 0 0 5px black;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 0.4rem;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 0.4rem;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

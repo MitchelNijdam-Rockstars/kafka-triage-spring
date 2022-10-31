@@ -2,10 +2,18 @@ table {
   width: 100%;
 }
 
-.title {
+.float-left {
   float: left;
 }
 
-.refresh-button {
+.float-right {
   float: right;
+}
+
+tr.topic-data-row {
+  cursor: pointer;
+}
+
+tr.topic-data-row:hover {
+  background: var(--kt-table-hover);
 }

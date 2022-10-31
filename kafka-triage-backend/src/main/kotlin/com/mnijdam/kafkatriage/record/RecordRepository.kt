@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.transaction.annotation.Transactional
 
-interface RecordRepository: JpaRepository<Record, Long> {
+interface RecordRepository : JpaRepository<Record, Long> {
     @Query("select new com.mnijdam.kafkatriage.topic.Topic(r.topic, count(*)) from Record r where triaged=false group by r.topic")
     fun listTopics(): List<Topic>
 
@@ -22,4 +22,7 @@ interface RecordRepository: JpaRepository<Record, Long> {
     @Transactional
     @Query("update Record set replayedOffset=:replayedOffset where id=:id")
     fun setReplayedOffset(id: Long, replayedOffset: Long)
+
+    @Query("select r from Record r where topic=:topic")
+    fun findByTopic(topic: String): List<Record>
 }
