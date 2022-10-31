@@ -46,6 +46,6 @@ tr.triaged .mat-cell {
   font-weight: bold;
 }
 
-.error-record-details-value {
-  /*  TODO: when stacktrace is opened the page shifts, try to make it scrollable instead */
+pre {
+  white-space: pre-wrap !important;
 }
