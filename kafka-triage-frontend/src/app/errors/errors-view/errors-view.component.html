@@ -51,7 +51,7 @@
       <ng-container matColumnDef="timestamp">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Timestamp</th>
         <td mat-cell *matCellDef="let element">
-          {{element.timestamp | date: 'dd-MM-yy, HH:mm:ss.SSS' }}
+          {{element.timestamp | date: 'dd-MM-yyyy, HH:mm:ss.SSS' }}
         </td>
       </ng-container>
 
@@ -172,5 +172,11 @@
       </tr>
       <tr mat-row *matRowDef="let element; columns: ['expandedDetail']" class="detail-row"></tr>
     </table>
+    <mat-paginator
+      [pageSizeOptions]="[10, 20, 50, 100]"
+      showFirstLastButtons
+      aria-label="Select page of errors"
+      (page)="pageErrors($event)"
+    ></mat-paginator>
   </div>
 </div>

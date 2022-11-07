@@ -8,6 +8,7 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { ToastService } from "../../toast/toast.service";
 import { ActivatedRoute } from "@angular/router";
 import { ErrorRecordFilter } from "../ErrorRecordFilter";
+import { MatPaginator, PageEvent } from "@angular/material/paginator";
 
 @Component({
   selector: 'kt-errors-view',
@@ -36,6 +37,7 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   private errorFilter?: ErrorRecordFilter;
 
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private errorService: ErrorRecordService,
               private toastService: ToastService,
@@ -43,7 +45,6 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-
     this.route.queryParams
     .subscribe((params: any) => {
         if (params && params.topic) {
@@ -61,6 +62,7 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.errorRecordsDataSource.sort = this.sort;
+    this.errorRecordsDataSource.paginator = this.paginator;
   }
 
   refreshRecords() {
@@ -175,5 +177,9 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   private findHeader(errorRecord: ErrorRecord, key: string) {
     return errorRecord.headers
     ?.find(header => header.key === key)?.value || '';
+  }
+
+  pageErrors($event: PageEvent) {
+    console.log($event);
   }
 }

@@ -1,22 +1,22 @@
 package com.mnijdam.kafkatriage.record
 
 import com.mnijdam.kafkatriage.replay.ReplayService
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/records")
 class RecordController(
     private val recordRepository: RecordRepository,
+    private val recordService: RecordService,
     private val replayService: ReplayService
 ) {
 
     @GetMapping
-    fun getRecords(@RequestParam(required = false) topic: String?): List<Record> {
-        return if (topic == null) {
-            recordRepository.findAll()
-        } else {
-            recordRepository.findByTopic(topic)
-        }
+    fun getRecords(recordRequest: RecordRequest = RecordRequest()): PageResponse<Record> {
+        val page = recordService.getRecordPage(recordRequest)
+        return PageResponse.fromPage(page)
     }
 
     @PostMapping("/discard")
@@ -29,5 +29,34 @@ class RecordController(
     fun replayRecords(@RequestBody ids: List<Long>): Boolean {
         replayService.replay(ids)
         return true
+    }
+}
+
+data class RecordRequest(
+    // page & sort
+    val page: Int = 0,
+    val size: Int = 10,
+    val sortDirection: SortDirection = SortDirection.ASC,
+    val sortKey: String? = null,
+
+    // filters
+    val topic: String? = null
+) {
+    enum class SortDirection {
+        ASC, DESC
+    }
+
+    private fun toSort(): Sort {
+        return when (sortDirection) {
+            SortDirection.ASC -> Sort.by(sortKey).ascending()
+            SortDirection.DESC -> Sort.by(sortKey).descending()
+        }
+    }
+
+    fun toPage(): PageRequest {
+        return when (sortKey) {
+            null -> PageRequest.of(page, size)
+            else -> PageRequest.of(page, size, this.toSort())
+        }
     }
 }

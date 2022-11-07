@@ -1,6 +1,8 @@
 package com.mnijdam.kafkatriage.record
 
 import com.mnijdam.kafkatriage.topic.Topic
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
@@ -24,5 +26,5 @@ interface RecordRepository : JpaRepository<Record, Long> {
     fun setReplayedOffset(id: Long, replayedOffset: Long)
 
     @Query("select r from Record r where topic=:topic")
-    fun findByTopic(topic: String): List<Record>
+    fun findByTopic(topic: String, pageable: Pageable): Page<Record>
 }
