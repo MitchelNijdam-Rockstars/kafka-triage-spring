@@ -1,1 +1,5 @@
+GET localhost:8029/records
+
+###
+
 GET localhost:8029/records?size=10&sortKey=topic

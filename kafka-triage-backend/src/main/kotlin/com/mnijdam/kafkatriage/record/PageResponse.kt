@@ -3,7 +3,7 @@ package com.mnijdam.kafkatriage.record
 import org.springframework.data.domain.Page
 
 data class PageResponse<T>(
-    val content: MutableList<T>,
+    val content: List<T>,
     val totalPages: Int,
     val totalElements: Long,
     val size: Int,

@@ -7,7 +7,7 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
 import { SelectionModel } from "@angular/cdk/collections";
 import { ToastService } from "../../toast/toast.service";
 import { ActivatedRoute } from "@angular/router";
-import { ErrorRecordFilter } from "../ErrorRecordFilter";
+import { ErrorRecordRequest } from "../ErrorRecordRequest";
 import { MatPaginator, PageEvent } from "@angular/material/paginator";
 
 @Component({
@@ -34,7 +34,7 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   selection = new SelectionModel<ErrorRecord>(true, []);
   isRefreshing = false;
 
-  private errorFilter?: ErrorRecordFilter;
+  private errorRequest = new ErrorRecordRequest();
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -48,11 +48,9 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
     this.route.queryParams
     .subscribe((params: any) => {
         if (params && params.topic) {
-          this.errorFilter = {
-            topic: params.topic
-          }
+          this.errorRequest.topic = params.topic;
         } else {
-          this.errorFilter = undefined;
+          this.errorRequest.topic = undefined;
         }
 
         this.refreshRecords();
@@ -62,15 +60,14 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     this.errorRecordsDataSource.sort = this.sort;
-    this.errorRecordsDataSource.paginator = this.paginator;
   }
 
   refreshRecords() {
     this.isRefreshing = true;
-    this.errorService.getErrorRecords(this.errorFilter).subscribe({
-      next: async errorRecords => {
-        errorRecords.sort((a, b) => this.sortErrorRecords(a, b));
-        this.errorRecordsDataSource.data = errorRecords;
+    this.errorService.getErrorRecords(this.errorRequest).subscribe({
+      next: async errorRecordPage => {
+        this.errorRecordsDataSource.data = errorRecordPage.content;
+        this.paginator.length = errorRecordPage.totalElements;
 
         await new Promise(f => setTimeout(f, 500)); // time for the animation to complete
         this.isRefreshing = false;
@@ -162,16 +159,12 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   }
 
   createFilterLabel() {
-    if (this.errorFilter) {
-      return Object.entries(this.errorFilter)
+    if (this.errorRequest) {
+      return Object.entries(this.errorRequest)
       .filter(([_, value]) => value)
       .map(([key, value]) => `${key}=${value}`).join(", ");
     }
     return "None";
-  }
-
-  private sortErrorRecords(a: ErrorRecord, b: ErrorRecord) {
-    return a.timestamp - b.timestamp ? -1 : 1;
   }
 
   private findHeader(errorRecord: ErrorRecord, key: string) {
@@ -180,6 +173,8 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   }
 
   pageErrors($event: PageEvent) {
-    console.log($event);
+    this.errorRequest.size = $event.pageSize;
+    this.errorRequest.page = $event.pageIndex;
+    this.refreshRecords();
   }
 }

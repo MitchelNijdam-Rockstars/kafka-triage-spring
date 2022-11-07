@@ -3,7 +3,9 @@ import { HttpClient, HttpParams } from "@angular/common/http";
 import { catchError, Observable } from "rxjs";
 import { ErrorRecord } from "./ErrorRecord";
 import { ToastService } from "../toast/toast.service";
-import { ErrorRecordFilter } from "./ErrorRecordFilter";
+import { ErrorRecordRequest } from "./ErrorRecordRequest";
+import { RemoveNull } from "../helpers/remove-null";
+import { PageResponse } from "./PageResponse";
 
 export const BASE_PATH_KAFKA_TRIAGE_BACKEND = new InjectionToken<string>('basePath');
 
@@ -19,9 +21,10 @@ export class ErrorRecordService {
     this.baseUrl = basePath;
   }
 
-  getErrorRecords(errorFilter?: ErrorRecordFilter): Observable<ErrorRecord[]> {
-    let options = {params: <HttpParams>(<unknown>errorFilter)}; // TODO: filter undefined values
-    return this.http.get<ErrorRecord[]>(this.baseUrl + '/records', options).pipe(
+  getErrorRecords(errorFilter: ErrorRecordRequest): Observable<PageResponse<ErrorRecord[]>> {
+    RemoveNull.removeNulls(errorFilter);
+    let options = {params: <HttpParams>(<unknown>errorFilter)};
+    return this.http.get<PageResponse<ErrorRecord[]>>(this.baseUrl + '/records', options).pipe(
       catchError((error) => {
         console.error(error);
         this.toastService.showError("Failed to retrieve records");

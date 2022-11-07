@@ -36,8 +36,8 @@ data class RecordRequest(
     // page & sort
     val page: Int = 0,
     val size: Int = 10,
-    val sortDirection: SortDirection = SortDirection.ASC,
-    val sortKey: String? = null,
+    val sortDirection: SortDirection = SortDirection.DESC,
+    val sortKey: String = "timestamp",
 
     // filters
     val topic: String? = null
@@ -53,10 +53,5 @@ data class RecordRequest(
         }
     }
 
-    fun toPage(): PageRequest {
-        return when (sortKey) {
-            null -> PageRequest.of(page, size)
-            else -> PageRequest.of(page, size, this.toSort())
-        }
-    }
+    fun toPage() = PageRequest.of(page, size, this.toSort())
 }
