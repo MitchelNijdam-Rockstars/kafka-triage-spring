@@ -24,9 +24,9 @@
         </mat-icon>
       </button>
     </div>
-    <div class="filters"><p><strong>Filters:</strong> {{createFilterLabel()}}</p></div>
   </div>
 
+  <kt-filter-bar></kt-filter-bar>
 
   <div class="data">
     <table mat-table [dataSource]="dataSource"
@@ -175,5 +175,7 @@
       showFirstLastButtons
       aria-label="Select page of errors"
     ></mat-paginator>
+
+    <div class="filters"><p><strong>Filters:</strong> {{createFilterLabel()}}</p></div>
   </div>
 </div>

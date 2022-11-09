@@ -23,6 +23,8 @@ import { MatTabsModule } from "@angular/material/tabs";
 import { MatButtonModule } from "@angular/material/button";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatPaginatorModule } from "@angular/material/paginator";
+import { FilterBarComponent } from './filter/filter-bar/filter-bar.component';
+import { FilterOptionComponent } from './filter/filter-option/filter-option.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { MatPaginatorModule } from "@angular/material/paginator";
     MenuComponent,
     TopicsViewComponent,
     ErrorsViewComponent,
-    ToastComponent
+    ToastComponent,
+    FilterBarComponent,
+    FilterOptionComponent
   ],
   imports: [
     BrowserModule,

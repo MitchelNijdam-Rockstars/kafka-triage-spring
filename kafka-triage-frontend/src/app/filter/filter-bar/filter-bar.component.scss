@@ -1,0 +1,21 @@
+:host {
+  border: 1px solid grey;
+  border-radius: 0.1rem;
+  background-color: white;
+  display: flex;
+  padding: 0.2rem;
+}
+
+.add-filter-button {
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  border: 1px solid grey;
+  border-radius: 0.1rem;
+  padding: 0.1rem 0.2rem 0.1rem 0.1rem;
+  background-color: var(--kt-button-background);
+
+  &:hover {
+    background-color: var(--kt-button-hover);
+  }
+}
