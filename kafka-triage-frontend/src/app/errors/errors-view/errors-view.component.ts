@@ -92,33 +92,6 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
   }
 
-  getErrorCause(errorRecord: ErrorRecord): string {
-    return this.findHeader(errorRecord, "kafka_dlt-exception-cause-fqcn");
-  }
-
-  getOriginalTopic(errorRecord: ErrorRecord): string {
-    return this.findHeader(errorRecord, "kafka_dlt-original-topic");
-  }
-
-  getOriginalPartition(errorRecord: ErrorRecord): string {
-    return this.findHeader(errorRecord, "kafka_dlt-original-partition");
-  }
-
-  getOriginalOffset(errorRecord: ErrorRecord): string {
-    return this.findHeader(errorRecord, "kafka_dlt-original-offset");
-  }
-
-  getOriginalTimestamp(errorRecord: ErrorRecord): string {
-    return this.findHeader(errorRecord, "kafka_dlt-original-timestamp");
-  }
-
-  getOriginalConsumerGroup(errorRecord: ErrorRecord): string {
-    return this.findHeader(errorRecord, "kafka_dlt-original-consumer-group");
-  }
-
-  getStacktrace(errorRecord: ErrorRecord): string {
-    return this.findHeader(errorRecord, "kafka_dlt-exception-stacktrace");
-  }
 
   discardRecords() {
     const hasSelection = this.selection.selected.length > 0;
@@ -165,5 +138,33 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   private findHeader(errorRecord: ErrorRecord, key: string) {
     return errorRecord.headers
     ?.find(header => header.key === key)?.value || '';
+  }
+
+  getErrorCause(errorRecord: ErrorRecord): string {
+    return this.findHeader(errorRecord, "kafka_dlt-exception-cause-fqcn");
+  }
+
+  getOriginalTopic(errorRecord: ErrorRecord): string {
+    return this.findHeader(errorRecord, "kafka_dlt-original-topic");
+  }
+
+  getOriginalPartition(errorRecord: ErrorRecord): string {
+    return this.findHeader(errorRecord, "kafka_dlt-original-partition");
+  }
+
+  getOriginalOffset(errorRecord: ErrorRecord): string {
+    return this.findHeader(errorRecord, "kafka_dlt-original-offset");
+  }
+
+  getOriginalTimestamp(errorRecord: ErrorRecord): string {
+    return this.findHeader(errorRecord, "kafka_dlt-original-timestamp");
+  }
+
+  getOriginalConsumerGroup(errorRecord: ErrorRecord): string {
+    return this.findHeader(errorRecord, "kafka_dlt-original-consumer-group");
+  }
+
+  getStacktrace(errorRecord: ErrorRecord): string {
+    return this.findHeader(errorRecord, "kafka_dlt-exception-stacktrace");
   }
 }
