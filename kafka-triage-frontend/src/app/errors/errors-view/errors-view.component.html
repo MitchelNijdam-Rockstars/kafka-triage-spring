@@ -29,14 +29,11 @@
 
 
   <div class="data">
-    <table mat-table matSort multiTemplateDataRows [dataSource]="errorRecordsDataSource">
+    <table mat-table [dataSource]="dataSource"
+           matSort matSortActive="timestamp" matSortDirection="desc"
+           multiTemplateDataRows>
       <ng-container matColumnDef="select">
         <th mat-header-cell *matHeaderCellDef>
-          <mat-checkbox (change)="$event ? toggleAllRows() : null"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()"
-                        [aria-label]="checkboxLabel()">
-          </mat-checkbox>
         </th>
         <td mat-cell *matCellDef="let element">
           <mat-checkbox (click)="$event.stopPropagation()"
@@ -61,7 +58,8 @@
       </ng-container>
 
       <ng-container matColumnDef="cause">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Cause</th>
+        <!-- TODO: Make this sortable -->
+        <th mat-header-cell *matHeaderCellDef>Cause</th>
         <td mat-cell *matCellDef="let element">{{getErrorCause(element)}}</td>
       </ng-container>
 
@@ -176,7 +174,6 @@
       [pageSizeOptions]="[10, 20, 50, 100]"
       showFirstLastButtons
       aria-label="Select page of errors"
-      (page)="pageErrors($event)"
     ></mat-paginator>
   </div>
 </div>
