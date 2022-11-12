@@ -28,6 +28,7 @@ import { FilterOptionComponent } from './filter/filter-option/filter-option.comp
 import { MatInputModule } from "@angular/material/input";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSelectModule } from "@angular/material/select";
+import { EnumToStringPipe } from './pipes/enum-to-string.pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { MatSelectModule } from "@angular/material/select";
     ErrorsViewComponent,
     ToastComponent,
     FilterBarComponent,
-    FilterOptionComponent
+    FilterOptionComponent,
+    EnumToStringPipe
   ],
   imports: [
     BrowserModule,

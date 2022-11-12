@@ -1,18 +1,31 @@
 <div *ngIf="!editingKey" (click)="editKey()">
-  {{ getFormControl('key').value }}
+  {{ getFormControl('key').value === '' ? '[Choose]' : getFormControl('key').value }}
 </div>
 <div *ngIf="editingKey">
-  <mat-form-field>
-    <mat-select #keySelect [formControl]="getFormControl('key')" (selectionChange)="editingKey = false">
-      <mat-option *ngFor="let key of keyOptions" [value]="key">
-        {{key}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
+  <mat-select #selectKey
+              [formControl]="getFormControl('key')"
+              (selectionChange)="editingKey = false"
+              (closed)="editingKey = false">
+    <mat-option *ngFor="let key of keyOptions" [value]="key">
+      {{key}}
+    </mat-option>
+  </mat-select>
 </div>
 
 
-<div>=</div>
+<div *ngIf="!editingOperation" (click)="editOperation()">
+  {{ getFormControl('operation').value }}
+</div>
+<div *ngIf="editingOperation">
+  <mat-select #selectOperation
+              [formControl]="getFormControl('operation')"
+              (selectionChange)="editingOperation = false"
+              (closed)="editingOperation = false">
+    <mat-option *ngFor="let operation of filterOperationOptions" [value]="operation">
+      {{operation | enumToString}}
+    </mat-option>
+  </mat-select>
+</div>
 
 
 <div>Value</div>

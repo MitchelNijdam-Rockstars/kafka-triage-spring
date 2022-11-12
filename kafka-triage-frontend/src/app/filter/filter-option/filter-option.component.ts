@@ -10,27 +10,31 @@ import { MatSelect } from "@angular/material/select";
 })
 export class FilterOptionComponent {
 
-  @Input() filter: Filter;
   @Input() keyOptions: string[] = [];
 
   @Output()
-  delete = new EventEmitter<Filter>();
+  delete = new EventEmitter();
 
-  @ViewChild('keySelect') keySelect: MatSelect;
+  @ViewChild('selectKey') selectKey: MatSelect;
+  @ViewChild('selectOperation') selectOperation: MatSelect;
+  @ViewChild('selectValue') selectValue: MatSelect;
 
   form: FormGroup;
-  editingKey = true;
+  editingKey = false;
+  editingOperation = false;
+  editingValue = false;
+  filterOperationOptions = Object.values(FilterOperation);
 
   constructor(private fb: FormBuilder) {
     this.form = this.fb.group({
-      key: ['Choose key', Validators.required],
+      key: ['', Validators.required],
       operation: [FilterOperation.EQUALS, Validators.required],
       value: ['', Validators.required]
     });
   }
 
   removeThisFilter() {
-    this.delete.emit(this.filter);
+    this.delete.emit();
   }
 
   getFormControl(name: string) {
@@ -39,6 +43,11 @@ export class FilterOptionComponent {
 
   editKey() {
     this.editingKey = true;
-    setTimeout(() => this.keySelect.open());
+    setTimeout(() => this.selectKey.open());
+  }
+
+  editOperation() {
+    this.editingOperation = true;
+    setTimeout(() => this.selectOperation.open());
   }
 }

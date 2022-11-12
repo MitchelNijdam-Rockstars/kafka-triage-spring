@@ -1,5 +1,5 @@
 <div class="filter-option" *ngFor="let filter of filters">
-  <kt-filter-option [filter]="filter" [keyOptions]="getKeyOptions()" (delete)="removeFilter(filter)"></kt-filter-option>
+  <kt-filter-option [keyOptions]="getKeyOptions()" (delete)="removeFilter(filter)"></kt-filter-option>
 </div>
 
 <div class="add-filter-button" (click)="addFilter()">
