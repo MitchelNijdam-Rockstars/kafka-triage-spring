@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FilterEvent } from "../FilterEvent";
+import { Filter } from "../Filter";
 
 // Inspiration: https://dribbble.com/shots/5851903-Filter-Interaction
 @Component({
@@ -6,14 +8,24 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './filter-bar.component.html',
   styleUrls: ['./filter-bar.component.scss']
 })
-export class FilterBarComponent implements OnInit {
+export class FilterBarComponent {
+  @Input()
+  keyOptions: string[] = [];
 
-  constructor() { }
+  @Output()
+  filterChange = new EventEmitter<FilterEvent>();
 
-  ngOnInit(): void {
-  }
+  filters: Filter[] = [new Filter()];
 
   addFilter() {
-    console.log('addFilter');
+    this.filters.push(new Filter());
+  }
+
+  removeFilter(filter: Filter) {
+    this.filters = this.filters.filter(f => f !== filter);
+  }
+
+  getKeyOptions() {
+    return this.keyOptions.filter(key => !this.filters.some(f => f.key === key));
   }
 }

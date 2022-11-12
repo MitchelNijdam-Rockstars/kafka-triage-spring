@@ -25,6 +25,9 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { FilterBarComponent } from './filter/filter-bar/filter-bar.component';
 import { FilterOptionComponent } from './filter/filter-option/filter-option.component';
+import { MatInputModule } from "@angular/material/input";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatSelectModule } from "@angular/material/select";
 
 @NgModule({
   declarations: [
@@ -52,7 +55,11 @@ import { FilterOptionComponent } from './filter/filter-option/filter-option.comp
     MatTabsModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    FormsModule,
+    MatSelectModule
   ],
   providers: [
     {
@@ -62,4 +69,5 @@ import { FilterOptionComponent } from './filter/filter-option/filter-option.comp
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

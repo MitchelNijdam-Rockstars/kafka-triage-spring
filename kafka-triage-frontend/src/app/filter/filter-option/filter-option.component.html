@@ -1,1 +1,21 @@
-<p>filter-option works!</p>
+<div *ngIf="!editingKey" (click)="editKey()">
+  {{ getFormControl('key').value }}
+</div>
+<div *ngIf="editingKey">
+  <mat-form-field>
+    <mat-select #keySelect [formControl]="getFormControl('key')" (selectionChange)="editingKey = false">
+      <mat-option *ngFor="let key of keyOptions" [value]="key">
+        {{key}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+
+<div>=</div>
+
+
+<div>Value</div>
+
+
+<mat-icon (click)="removeThisFilter()">close</mat-icon>
