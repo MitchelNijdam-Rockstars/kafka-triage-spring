@@ -3,6 +3,7 @@
   border-radius: 0.1rem;
   background-color: white;
   display: flex;
+  flex-wrap: wrap;
   gap: 0.2rem;
   padding: 0.2rem;
 }
@@ -18,5 +19,20 @@
 
   &:hover {
     background-color: var(--kt-button-hover);
+  }
+}
+
+.apply-button {
+  margin-left: auto;
+
+  .mat-raised-button {
+    line-height: 1.8rem;
+    color: black;
+    background-color: var(--kt-button-boring);
+  }
+
+  .mat-raised-button.active {
+    background-color: var(--kt-success);
+    color: white;
   }
 }

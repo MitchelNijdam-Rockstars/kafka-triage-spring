@@ -29,6 +29,7 @@ import { MatInputModule } from "@angular/material/input";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatSelectModule } from "@angular/material/select";
 import { EnumToStringPipe } from './pipes/enum-to-string.pipe';
+import { A11yModule } from "@angular/cdk/a11y";
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { EnumToStringPipe } from './pipes/enum-to-string.pipe';
     MatInputModule,
     ReactiveFormsModule,
     FormsModule,
-    MatSelectModule
+    MatSelectModule,
+    A11yModule
   ],
   providers: [
     {

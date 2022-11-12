@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { Filter, FilterOperation } from "../Filter";
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { FilterOperation } from "../Filter";
 import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { MatSelect } from "@angular/material/select";
 
@@ -8,7 +8,7 @@ import { MatSelect } from "@angular/material/select";
   templateUrl: './filter-option.component.html',
   styleUrls: ['./filter-option.component.scss']
 })
-export class FilterOptionComponent {
+export class FilterOptionComponent implements AfterViewInit {
 
   @Input() keyOptions: string[] = [];
 
@@ -17,12 +17,12 @@ export class FilterOptionComponent {
 
   @ViewChild('selectKey') selectKey: MatSelect;
   @ViewChild('selectOperation') selectOperation: MatSelect;
-  @ViewChild('selectValue') selectValue: MatSelect;
 
   form: FormGroup;
-  editingKey = false;
+  editingKey = true;
   editingOperation = false;
   editingValue = false;
+  FilterOperation = FilterOperation;
   filterOperationOptions = Object.values(FilterOperation);
 
   constructor(private fb: FormBuilder) {
@@ -31,6 +31,10 @@ export class FilterOptionComponent {
       operation: [FilterOperation.EQUALS, Validators.required],
       value: ['', Validators.required]
     });
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => this.selectKey.open(), 100);
   }
 
   removeThisFilter() {
@@ -49,5 +53,26 @@ export class FilterOptionComponent {
   editOperation() {
     this.editingOperation = true;
     setTimeout(() => this.selectOperation.open());
+  }
+
+  onKeyChange() {
+    this.editingKey = false;
+    this.editingOperation = true
+    setTimeout(() => this.selectOperation.open(), 100);
+  }
+
+  onOperationChange() {
+    this.editingOperation = false;
+    this.editingValue = true;
+  }
+
+  getValueInputType() {
+    let operation = this.form.get('operation')?.value;
+    if (operation === FilterOperation.EQUALS
+      || operation === FilterOperation.NOT_EQUALS
+      || operation === FilterOperation.REGEX) {
+      return 'text';
+    }
+    return 'number';
   }
 }

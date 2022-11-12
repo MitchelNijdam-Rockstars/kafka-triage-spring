@@ -1,34 +1,45 @@
 <div *ngIf="!editingKey" (click)="editKey()">
-  {{ getFormControl('key').value === '' ? '[Choose]' : getFormControl('key').value }}
+  {{ getFormControl('key').value === '' ? '[Field]' : getFormControl('key').value }}
 </div>
-<div *ngIf="editingKey">
+<ng-container *ngIf="editingKey">
   <mat-select #selectKey
               [formControl]="getFormControl('key')"
-              (selectionChange)="editingKey = false"
+              (selectionChange)="onKeyChange()"
               (closed)="editingKey = false">
     <mat-option *ngFor="let key of keyOptions" [value]="key">
       {{key}}
     </mat-option>
   </mat-select>
-</div>
+</ng-container>
 
 
 <div *ngIf="!editingOperation" (click)="editOperation()">
   {{ getFormControl('operation').value }}
 </div>
-<div *ngIf="editingOperation">
+<ng-container *ngIf="editingOperation">
   <mat-select #selectOperation
               [formControl]="getFormControl('operation')"
-              (selectionChange)="editingOperation = false"
+              (selectionChange)="onOperationChange()"
               (closed)="editingOperation = false">
     <mat-option *ngFor="let operation of filterOperationOptions" [value]="operation">
       {{operation | enumToString}}
     </mat-option>
   </mat-select>
+</ng-container>
+
+
+<div *ngIf="!editingValue" (click)="editingValue = true">
+  {{ getFormControl('value').value === '' ? '[Value]' : getFormControl('value').value }}
 </div>
-
-
-<div>Value</div>
+<ng-container *ngIf="editingValue">
+  <input matInput
+         [type]="getValueInputType()"
+         [formControl]="getFormControl('value')"
+         [cdkTrapFocus]="editingValue"
+         [cdkTrapFocusAutoCapture]="editingValue"
+         (blur)="editingValue = false"
+         (keyup.enter)="editingValue = false">
+</ng-container>
 
 
 <mat-icon (click)="removeThisFilter()">close</mat-icon>

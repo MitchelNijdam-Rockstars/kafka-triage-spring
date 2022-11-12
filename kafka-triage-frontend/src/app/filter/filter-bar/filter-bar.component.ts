@@ -15,7 +15,7 @@ export class FilterBarComponent {
   @Output()
   filterChange = new EventEmitter<FilterEvent>();
 
-  filters: Filter[] = [new Filter()];
+  filters: Filter[] = [];
 
   addFilter() {
     this.filters.push(new Filter());
