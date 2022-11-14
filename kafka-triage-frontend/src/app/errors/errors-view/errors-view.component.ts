@@ -10,6 +10,7 @@ import { ErrorRecordRequest, SortDirection } from "../ErrorRecordRequest";
 import { MatPaginator } from "@angular/material/paginator";
 import { ErrorRecordDataSource } from "../ErrorRecordDataSource";
 import { merge, tap } from "rxjs";
+import { FilterEvent } from "../../filter/FilterEvent";
 
 @Component({
   selector: 'kt-errors-view',
@@ -166,5 +167,13 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
 
   getStacktrace(errorRecord: ErrorRecord): string {
     return this.findHeader(errorRecord, "kafka_dlt-exception-stacktrace");
+  }
+
+  onFiltersApplied($filterEvent: FilterEvent) {
+    console.log($filterEvent);
+  }
+
+  getFilterKeys() {
+    return this.displayedColumns.filter(c => c !== 'select');
   }
 }

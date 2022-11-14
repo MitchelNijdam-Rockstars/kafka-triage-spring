@@ -1,4 +1,4 @@
-:host {
+.filter-option {
   display: flex;
   justify-content: center;
   cursor: pointer;
@@ -18,4 +18,7 @@
   }
 }
 
-
+.filter-option.invalid-option {
+  border-color: var(--kt-error);
+  border-width: 2px;
+}

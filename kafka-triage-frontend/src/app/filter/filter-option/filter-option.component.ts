@@ -69,10 +69,10 @@ export class FilterOptionComponent implements AfterViewInit {
 
   onOperationChange() {
     this.editingOperation = false;
-    this.editingValue = true;
-    if (this.getValueInputType() === 'number') {
+    if (this.getValueInputType() === 'number' && isNaN(this.form.value.value)) {
       this.form.get('value')?.setValue('');
     }
+    this.editingValue = true;
   }
 
   getValueInputType() {
