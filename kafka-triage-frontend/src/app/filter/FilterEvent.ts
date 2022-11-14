@@ -1,5 +1,6 @@
 import { Filter } from "./Filter";
 
 export class FilterEvent {
-  filters: Filter[] = [];
+  constructor(readonly filters: Filter[] = []) {
+  }
 }

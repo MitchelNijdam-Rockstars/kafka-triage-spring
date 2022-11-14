@@ -1,5 +1,9 @@
 <div class="filter-option" *ngFor="let filter of filters">
-  <kt-filter-option [keyOptions]="getKeyOptions()" (delete)="removeFilter(filter)"></kt-filter-option>
+  <kt-filter-option
+    [keyOptions]="getKeyOptions()"
+    (delete)="removeFilter(filter)"
+    (filterChange)="onFilterChange($event, filter)"
+  ></kt-filter-option>
 </div>
 
 <div class="add-filter-button" (click)="addFilter()">
@@ -8,5 +12,6 @@
 </div>
 
 <div class="apply-button">
-  <button mat-raised-button [class.active]="filters.length > 0">Apply</button>
+  <button mat-raised-button [class.active]="filters.length > 0" (click)="applyFilters()">Apply
+  </button>
 </div>
