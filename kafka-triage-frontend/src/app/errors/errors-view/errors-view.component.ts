@@ -171,6 +171,7 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
 
   onFiltersApplied($filterEvent: FilterEvent) {
     console.log($filterEvent);
+    // TODO: implement
   }
 
   getFilterKeys() {

@@ -4,7 +4,10 @@ import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service
 
 @Service
-class RecordService(private val recordRepository: RecordRepository) {
+class RecordService(
+    private val recordRepository: RecordRepository,
+    private val recordFilterService: RecordFilterService
+) {
 
     fun getRecordPage(recordRequest: RecordRequest): Page<Record> {
         val page = recordRequest.toPage()
@@ -13,5 +16,9 @@ class RecordService(private val recordRepository: RecordRepository) {
         } else {
             recordRepository.findByTopic(recordRequest.topic, page)
         }
+    }
+
+    fun getRecordPage(recordRequest: RecordFilter): Page<Record> {
+        return recordFilterService.getRecordPage(recordRequest)
     }
 }

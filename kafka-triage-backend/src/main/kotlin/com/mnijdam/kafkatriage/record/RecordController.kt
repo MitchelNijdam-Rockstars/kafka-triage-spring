@@ -19,6 +19,12 @@ class RecordController(
         return PageResponse.fromPage(page)
     }
 
+    @PostMapping("/filter")
+    fun filterRecords(@RequestBody recordFilter: RecordFilter): PageResponse<Record> {
+        val page = recordService.getRecordPage(recordFilter)
+        return PageResponse.fromPage(page)
+    }
+
     @PostMapping("/discard")
     fun discardRecords(@RequestBody ids: List<Long>): Boolean {
         recordRepository.markTriaged(ids)
@@ -54,4 +60,24 @@ data class RecordRequest(
     }
 
     fun toPage() = PageRequest.of(page, size, this.toSort())
+}
+
+data class RecordFilterRequest(
+    val filters: List<RecordFilter>
+)
+
+data class RecordFilter(
+    val key: String,
+    val operator: FilterOperator,
+    val value: String
+) {
+    enum class FilterOperator {
+        EQUALS,
+        NOT_EQUALS,
+        GREATER_THAN,
+        GREATER_THAN_OR_EQUAL,
+        LESS_THAN,
+        LESS_THAN_OR_EQUAL,
+        REGEX,
+    }
 }
