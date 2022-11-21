@@ -20,7 +20,7 @@ class RecordController(
     }
 
     @PostMapping("/filter")
-    fun filterRecords(@RequestBody recordFilter: RecordFilter): PageResponse<Record> {
+    fun filterRecords(@RequestBody recordFilter: RecordFilterRequest): PageResponse<Record> {
         val page = recordService.getRecordPage(recordFilter)
         return PageResponse.fromPage(page)
     }

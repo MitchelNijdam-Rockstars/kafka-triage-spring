@@ -18,7 +18,7 @@ class RecordService(
         }
     }
 
-    fun getRecordPage(recordRequest: RecordFilter): Page<Record> {
+    fun getRecordPage(recordRequest: RecordFilterRequest): Page<Record> {
         return recordFilterService.getRecordPage(recordRequest)
     }
 }

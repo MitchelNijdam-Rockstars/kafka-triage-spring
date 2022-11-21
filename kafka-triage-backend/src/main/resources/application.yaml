@@ -1,6 +1,6 @@
 spring:
   kafka:
-    bootstrap-servers: localhost:29092
+    bootstrap-servers:
     consumer:
       group-id: kafka-triage
       auto-offset-reset: earliest
@@ -13,9 +13,9 @@ spring:
     listener:
       ack-mode: record
   datasource:
-    url: jdbc:postgresql://localhost:5432/kafka-triage
-    username: rootuser
-    password: rootpass
+    url:
+    username:
+    password:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
@@ -25,3 +25,6 @@ spring:
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
 
+logging:
+  level:
+    org.jooq.Constants: WARN
