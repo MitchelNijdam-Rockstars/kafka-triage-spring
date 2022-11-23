@@ -7,7 +7,6 @@ GET localhost:8029/records?size=10&sortKey=topic
 ###
 
 POST localhost:8029/records/filter
-Accept: application/json
 Content-Type: application/json
 
 {

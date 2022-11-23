@@ -1,5 +1,6 @@
 package com.mnijdam.kafkatriage.record
 
+import com.mnijdam.kafkatriage.record.filter.RecordFilterService
 import org.springframework.data.domain.Page
 import org.springframework.stereotype.Service
 
