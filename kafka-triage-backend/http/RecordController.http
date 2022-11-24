@@ -13,8 +13,13 @@ Content-Type: application/json
   "filters": [
     {
       "key": "topic",
-      "value": "main-topic.kafka-listener.DLT",
-      "operator": "EQUALS"
+      "value": "(test.*|main-.*)",
+      "operator": "REGEX"
+    },
+    {
+      "key": "offset",
+      "value": "2",
+      "operator": "NOT_EQUALS"
     }
   ]
 }

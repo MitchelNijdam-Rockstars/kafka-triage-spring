@@ -6,5 +6,5 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 
 interface FilterRepository {
-    fun getRecordPage(filter: RecordFilterRequest, page: PageRequest): Page<Record>
+    fun getRecordPage(filterRequest: RecordFilterRequest, page: PageRequest): Page<Record>
 }
