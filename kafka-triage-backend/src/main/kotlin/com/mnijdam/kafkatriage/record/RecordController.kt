@@ -68,10 +68,10 @@ data class RecordFilterRequest(
 
 data class RecordFilter(
     val key: String,
-    val operator: FilterOperator,
+    val operation: FilterOperation,
     val value: String
 ) {
-    enum class FilterOperator {
+    enum class FilterOperation {
         EQUALS,
         NOT_EQUALS,
         GREATER_THAN,

@@ -6,6 +6,7 @@ import { ToastService } from "../toast/toast.service";
 import { ErrorRecordRequest } from "./ErrorRecordRequest";
 import { RemoveNull } from "../helpers/remove-null";
 import { PageResponse } from "./PageResponse";
+import { ErrorRecordFilterRequest } from "./ErrorRecordFilterRequest";
 
 export const BASE_PATH_KAFKA_TRIAGE_BACKEND = new InjectionToken<string>('basePath');
 
@@ -25,6 +26,17 @@ export class ErrorRecordService {
     RemoveNull.removeNulls(errorFilter);
     let options = {params: <HttpParams>(<unknown>errorFilter)};
     return this.http.get<PageResponse<ErrorRecord[]>>(this.baseUrl + '/records', options).pipe(
+      catchError((error) => {
+        console.error(error);
+        this.toastService.showError("Failed to retrieve records");
+        throw error;
+      })
+    );
+  }
+
+  getErrorRecordsWithFilter(errorFilter: ErrorRecordFilterRequest): Observable<PageResponse<ErrorRecord[]>> {
+    RemoveNull.removeNulls(errorFilter);
+    return this.http.post<PageResponse<ErrorRecord[]>>(this.baseUrl + '/records/filter', errorFilter).pipe(
       catchError((error) => {
         console.error(error);
         this.toastService.showError("Failed to retrieve records");

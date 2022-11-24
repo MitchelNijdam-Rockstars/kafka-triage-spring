@@ -11,6 +11,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { ErrorRecordDataSource } from "../ErrorRecordDataSource";
 import { merge, tap } from "rxjs";
 import { FilterEvent } from "../../filter/FilterEvent";
+import { ErrorRecordFilterRequest } from "../ErrorRecordFilterRequest";
 
 @Component({
   selector: 'kt-errors-view',
@@ -37,6 +38,7 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   isRefreshing = false;
 
   private errorRequest = new ErrorRecordRequest();
+  private filterRequest = new ErrorRecordFilterRequest();
 
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -53,10 +55,10 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
     .subscribe((params: any) => {
         if (params && params.topic) {
           this.errorRequest.topic = params.topic;
+          // TODO: set filter in filter bar
         } else {
           this.errorRequest.topic = undefined;
         }
-
         this.refreshRecords();
       }
     );
@@ -78,6 +80,11 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   }
 
   refreshRecords() {
+    if (this.filterRequest.filters.length > 0) {
+      this.dataSource.loadErrorRecordsWithFilter(this.filterRequest);
+      return;
+    }
+
     if (this.paginator) {
       this.errorRequest.size = this.paginator.pageSize;
       this.errorRequest.page = this.paginator.pageIndex;
@@ -169,9 +176,9 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
     return this.findHeader(errorRecord, "kafka_dlt-exception-stacktrace");
   }
 
-  onFiltersApplied($filterEvent: FilterEvent) {
-    console.log($filterEvent);
-    // TODO: implement
+  onFiltersApplied(filterEvent: FilterEvent) {
+    this.filterRequest = filterEvent.toFilterRequest();
+    this.refreshRecords();
   }
 
   getFilterKeys() {

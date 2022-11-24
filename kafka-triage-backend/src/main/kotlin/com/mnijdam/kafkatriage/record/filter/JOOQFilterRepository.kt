@@ -3,7 +3,7 @@ package com.mnijdam.kafkatriage.record.filter
 import com.mnijdam.kafkatriage.record.Header
 import com.mnijdam.kafkatriage.record.Record
 import com.mnijdam.kafkatriage.record.RecordFilter
-import com.mnijdam.kafkatriage.record.RecordFilter.FilterOperator.*
+import com.mnijdam.kafkatriage.record.RecordFilter.FilterOperation.*
 import com.mnijdam.kafkatriage.record.RecordFilterRequest
 import jooq.generated.kt.Tables.HEADER
 import jooq.generated.kt.Tables.RECORD
@@ -26,7 +26,7 @@ class JOOQFilterRepository(private val jooqDsl: DSLContext) : FilterRepository {
         val query = jooqDsl.selectFrom(RECORD)
 
         for (filter in filterRequest.filters) {
-            val op = filter.operator
+            val op = filter.operation
             when (filter.key) {
                 "topic" -> query.where(createCondition(RECORD.TOPIC, op, filter.value))
                 "partition" -> query.where(createCondition(RECORD.PARTITION, op, filter.value.toInt()))
@@ -47,10 +47,10 @@ class JOOQFilterRepository(private val jooqDsl: DSLContext) : FilterRepository {
 
     private fun <T : Any> createCondition(
         field: TableField<RecordRecord, T>,
-        operator: RecordFilter.FilterOperator,
+        operation: RecordFilter.FilterOperation,
         value: T
     ): Condition {
-        return when (operator) {
+        return when (operation) {
             EQUALS -> field.eq(value)
             NOT_EQUALS -> field.ne(value)
             GREATER_THAN -> field.gt(value)

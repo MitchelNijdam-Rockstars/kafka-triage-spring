@@ -1,3 +1,5 @@
+import { ErrorRecordFilterRequest, RequestFilterOperation } from "../errors/ErrorRecordFilterRequest";
+
 export class Filter {
   key!: string;
   value!: string;
