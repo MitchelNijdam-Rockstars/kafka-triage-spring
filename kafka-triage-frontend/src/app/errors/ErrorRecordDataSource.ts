@@ -4,6 +4,7 @@ import { BehaviorSubject, catchError, finalize, Observable, of } from "rxjs";
 import { ErrorRecordService } from "./error-record.service";
 import { ErrorRecordRequest } from "./ErrorRecordRequest";
 import { ErrorRecordFilterRequest } from "./ErrorRecordFilterRequest";
+import { Pageable } from "./Pageable";
 
 export class ErrorRecordDataSource implements DataSource<ErrorRecord> {
   private errorRecordSubject = new BehaviorSubject<ErrorRecord[]>([]);
@@ -42,7 +43,9 @@ export class ErrorRecordDataSource implements DataSource<ErrorRecord> {
     });
   }
 
-  loadErrorRecordsWithFilter(errorFilterRequest: ErrorRecordFilterRequest) {
+  loadErrorRecordsWithFilter(errorFilterRequest: ErrorRecordFilterRequest, pageable: Pageable) {
+    errorFilterRequest.pagination = pageable;
+
     this.loadingSubject.next(true);
     this.errorService.getErrorRecordsWithFilter(errorFilterRequest)
     .pipe(

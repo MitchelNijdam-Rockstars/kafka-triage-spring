@@ -12,6 +12,7 @@ import { ErrorRecordDataSource } from "../ErrorRecordDataSource";
 import { merge, tap } from "rxjs";
 import { FilterEvent } from "../../filter/FilterEvent";
 import { ErrorRecordFilterRequest } from "../ErrorRecordFilterRequest";
+import { Pageable } from "../Pageable";
 
 @Component({
   selector: 'kt-errors-view',
@@ -80,26 +81,33 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   }
 
   refreshRecords() {
+    let pageable = this.getPageable();
+    this.errorRequest = pageable;
+
     if (this.filterRequest.filters.length > 0) {
-      this.dataSource.loadErrorRecordsWithFilter(this.filterRequest);
-      return;
+      this.dataSource.loadErrorRecordsWithFilter(this.filterRequest, pageable);
+    } else {
+      this.dataSource.loadErrorRecords(this.errorRequest);
     }
+  }
+
+  private getPageable(): Pageable {
+    let pageable = new Pageable();
 
     if (this.paginator) {
-      this.errorRequest.size = this.paginator.pageSize;
-      this.errorRequest.page = this.paginator.pageIndex;
+      pageable.size = this.paginator.pageSize;
+      pageable.page = this.paginator.pageIndex;
     }
     if (this.sort) {
-      this.errorRequest.sortKey = this.sort.active;
-      this.errorRequest.sortDirection = this.sort.direction.toUpperCase() as SortDirection;
+      pageable.sortKey = this.sort.active;
+      pageable.sortDirection = this.sort.direction.toUpperCase() as SortDirection;
     }
-    this.dataSource.loadErrorRecords(this.errorRequest);
+    return pageable;
   }
 
   checkboxLabel(row: ErrorRecord): string {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
   }
-
 
   discardRecords() {
     const hasSelection = this.selection.selected.length > 0;

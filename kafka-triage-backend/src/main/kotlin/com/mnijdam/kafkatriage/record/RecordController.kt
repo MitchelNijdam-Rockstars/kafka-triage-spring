@@ -63,7 +63,8 @@ data class RecordRequest(
 }
 
 data class RecordFilterRequest(
-    val filters: List<RecordFilter>
+    val filters: List<RecordFilter>,
+    val pagination: RecordRequest
 )
 
 data class RecordFilter(

@@ -4,28 +4,30 @@ import com.mnijdam.kafkatriage.record.Header
 import com.mnijdam.kafkatriage.record.Record
 import com.mnijdam.kafkatriage.record.RecordFilter
 import com.mnijdam.kafkatriage.record.RecordFilter.FilterOperation.*
-import com.mnijdam.kafkatriage.record.RecordFilterRequest
 import jooq.generated.kt.Tables.HEADER
 import jooq.generated.kt.Tables.RECORD
 import jooq.generated.kt.tables.records.RecordRecord
-import org.jooq.Condition
-import org.jooq.DSLContext
-import org.jooq.TableField
+import org.jooq.*
+import org.jooq.impl.DSL.field
+import org.jooq.impl.DSL.name
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
-import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
+import org.springframework.data.domain.Sort
+import org.springframework.data.domain.Sort.Direction
 import org.springframework.stereotype.Repository
+
 
 @Repository
 class JOOQFilterRepository(private val jooqDsl: DSLContext) : FilterRepository {
 
     override fun getRecordPage(
-        filterRequest: RecordFilterRequest,
-        page: PageRequest
+        filters: List<RecordFilter>,
+        pageable: Pageable
     ): Page<Record> {
         val query = jooqDsl.selectFrom(RECORD)
 
-        for (filter in filterRequest.filters) {
+        for (filter in filters) {
             val op = filter.operation
             when (filter.key) {
                 "topic" -> query.where(createCondition(RECORD.TOPIC, op, filter.value))
@@ -37,12 +39,46 @@ class JOOQFilterRepository(private val jooqDsl: DSLContext) : FilterRepository {
                 "triaged" -> query.where(createCondition(RECORD.TRIAGED, op, filter.value.toBoolean()))
             }
         }
+        val count = jooqDsl.fetchCount(query)
+        if (count == 0) {
+            return PageImpl(emptyList(), pageable, 0)
+        }
 
-        // TODO: pagination & sorting
-        val records = query.fetchInto(JooqRecord::class.java).map { it.toRecord(emptyList()) }
+        sortingAndPagination(query, pageable)
 
-        // TODO: fetch records
-        return PageImpl(records, page, records.size.toLong())
+        val records = query.fetchInto(JooqRecord::class.java)
+        val headers = fetchHeaders(records.map { it.id!! })
+
+        val result = records.map { it.toRecord(headers) }
+
+        return PageImpl(result, pageable, count.toLong())
+    }
+
+    private fun sortingAndPagination(
+        query: SelectWhereStep<RecordRecord>,
+        pageable: Pageable
+    ) {
+        val sortFields = getSortFields(pageable.sort)
+        query
+            .orderBy(sortFields)
+            .limit(pageable.pageSize)
+            .offset(pageable.offset)
+    }
+
+    private fun getSortFields(sort: Sort?): List<SortField<*>> {
+        return sort?.map { field ->
+            val tableField = field(name(field.property))
+            val direction = field.direction
+            convertTableFieldToSortField(tableField, direction)
+        }?.toList() ?: emptyList()
+    }
+
+    private fun convertTableFieldToSortField(field: Field<*>, sortDirection: Direction): SortField<*> {
+        return if (sortDirection == Direction.ASC) {
+            field.asc()
+        } else {
+            field.desc()
+        }
     }
 
     private fun <T : Any> createCondition(
@@ -61,14 +97,14 @@ class JOOQFilterRepository(private val jooqDsl: DSLContext) : FilterRepository {
         }
     }
 
-    private fun fetchHeaders(): List<JooqHeader> {
+    private fun fetchHeaders(recordIds: List<Long>): List<JooqHeader> {
         return jooqDsl.select(
             HEADER.ID,
             HEADER.KEY,
             HEADER.VALUE,
             HEADER.NATIVE,
             HEADER.RECORD_ID.`as`("recordId")
-        ).from(HEADER).fetchInto(JooqHeader::class.java)
+        ).from(HEADER).where(HEADER.RECORD_ID.`in`(recordIds)).fetchInto(JooqHeader::class.java)
     }
 }
 

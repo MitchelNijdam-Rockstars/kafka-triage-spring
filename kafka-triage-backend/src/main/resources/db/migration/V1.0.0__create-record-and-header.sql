@@ -1,6 +1,6 @@
 create table if not exists record
 (
-    id              serial primary key not null,
+    id              bigserial primary key not null,
     key             varchar(128),
     "offset"        int8,
     partition       int4               not null,
@@ -14,11 +14,11 @@ create table if not exists record
 
 create table if not exists header
 (
-    id        serial primary key not null,
+    id        bigserial primary key not null,
     key       varchar(128),
     value     text,
     native    boolean,
-    record_id int4               not null,
+    record_id int8               not null,
     constraint fk_record foreign key (record_id) references record (id) on delete cascade
 );
 

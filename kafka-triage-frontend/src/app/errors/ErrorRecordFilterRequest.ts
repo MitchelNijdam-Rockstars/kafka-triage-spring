@@ -1,5 +1,8 @@
+import { ErrorRecordRequest } from "./ErrorRecordRequest";
+
 export class ErrorRecordFilterRequest {
   filters: Filter[] = [];
+  pagination: ErrorRecordRequest;
 }
 
 export class Filter {
