@@ -3,7 +3,7 @@ server:
 
 spring:
   flyway:
-    enabled: false # TODO: enable flyway (but how, with JOOQ chicken egg problem?)Y
+    enabled: false # TODO: put flyway migration in gradle
   jpa:
     show-sql: true
     properties:

@@ -40,16 +40,30 @@ docker compose. The database is exposed on port `5432` and the credentials are:
 * password: `rootpass`
 * database: `kafka-triage`
 
-After starting the application, check if Flyway applied the migrations (located
-in `src/main/resources/db/migration`):
+Connect with the database via:
 
 ```bash
 psql -U rootuser kafka-triage
-kafka-triage=# \dt
-                 List of relations
- Schema |         Name          | Type  |  Owner
---------+-----------------------+-------+----------
- public | flyway_schema_history | table | rootuser
- public | record                | table | rootuser
-(2 rows)
 ```
+
+### Flyway & JOOQ
+
+This app uses JOOQ and Flyway for interacting with the database.
+
+* **Flyway** for managing schema evolution
+* **JOOQ** for generating SQL queries in a type-safe and dynamic manner
+
+Since JOOQ classes are generated during the gradle build step based on a running database, we need to apply the flyway
+migration before it. The following approach is used.
+
+**On local dev environment**
+1. Disable Flyway migration in Spring by setting the property `spring.flyway.enabled=false`
+2. Start the database
+3. Apply the flyway migration scripts manually
+4. Run `gradle clean build`
+
+This generates the Java classes, which are committed to Git, so that on production...
+
+**On production environment**
+1. Enable flyway migration in Spring by setting the property `spring.flyway.enabled=true`
+2. When Spring starts it will apply the Flyway migrations (and fail if it errors)
