@@ -187,6 +187,8 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   onFiltersApplied(filterEvent: FilterEvent) {
     this.filterRequest = filterEvent.toFilterRequest();
     this.refreshRecords();
+    // TODO: add filter config in URL (maybe as Base64 encoded json?)
+    // so it is a sharable link
   }
 
   getFilterKeys() {

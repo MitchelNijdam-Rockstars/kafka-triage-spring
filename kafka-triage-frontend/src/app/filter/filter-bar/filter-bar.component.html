@@ -12,6 +12,6 @@
 </div>
 
 <div class="apply-button">
-  <button mat-raised-button [class.active]="filters.length > 0" (click)="applyFilters()">Apply
-  </button>
+  <button mat-raised-button [class.delete-active]="filters.length > 0" (click)="deleteFilters()" [matTooltip]="'Delete filters'">X</button>
+  <button mat-raised-button [class.apply-active]="filters.length > 0" (click)="applyFilters()">Apply</button>
 </div>

@@ -38,6 +38,7 @@ export class FilterBarComponent {
       console.warn('Some filters are invalid', this.filters);
     }
     if (validFilters.length == 0) {
+      this.filtersApplied.emit(new FilterEvent([]));
       return;
     }
     this.filtersApplied.emit(new FilterEvent(this.filters));
@@ -45,5 +46,10 @@ export class FilterBarComponent {
 
   onFilterChange($event: Filter, filter: Filter) {
     Object.assign(filter, $event);
+  }
+
+  deleteFilters() {
+    this.filters = [];
+    this.applyFilters();
   }
 }

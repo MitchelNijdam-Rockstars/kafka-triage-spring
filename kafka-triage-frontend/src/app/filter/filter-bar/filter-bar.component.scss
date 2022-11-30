@@ -29,10 +29,19 @@
     line-height: 1.8rem;
     color: black;
     background-color: var(--kt-button-boring);
+
+    &:first-child {
+      margin-right: 0.5rem;
+    }
   }
 
-  .mat-raised-button.active {
+  .mat-raised-button.apply-active {
     background-color: var(--kt-success);
+    color: white;
+  }
+
+  .mat-raised-button.delete-active {
+    background-color: var(--kt-error);
     color: white;
   }
 }
