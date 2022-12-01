@@ -15,6 +15,7 @@ body {
 :root {
   --kt-primary: #192a6f;
   --kt-primary-darker: #121e52;
+  --kt-primary-lighter: #42529b;
   --kt-accent: #f44336;
   --kt-error: var(--kt-accent);
   --kt-success: #4CAF50;
@@ -85,4 +86,9 @@ body {
 
 .float-right {
   float: right;
+}
+
+/* To prevent mat-select from appearing behind modal popup */
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+  z-index: 10000 !important;
 }

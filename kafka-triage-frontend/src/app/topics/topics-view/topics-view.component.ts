@@ -38,7 +38,7 @@ export class TopicsViewComponent implements OnInit, AfterViewInit {
   // Sort topics by lag, then by name
   refreshTopics() {
     this.isRefreshing = true;
-    this.topicService.getErrors().subscribe(async topics => {
+    this.topicService.getTopics().subscribe(async topics => {
       topics.sort((a, b) => this.sortTopics(a, b));
       this.topicsDataSource.data = topics;
 

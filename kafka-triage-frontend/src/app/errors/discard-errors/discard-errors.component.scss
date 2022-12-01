@@ -1,21 +1,63 @@
+:host {
+  background-color: var(--kt-primary);
+  color: white;
+  padding: 0.2rem;
+}
+
 .discard-title {
-  text-align: center;
-  border: 1px solid red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  mat-icon {
+    vertical-align: middle;
+    margin-right: 0.5rem;
+  }
 
   h3 {
-    float: left;
+    margin: 0.5rem 0.5rem 0.5rem 0;
   }
 
   .close-button {
-    float: right;
+    background-color: var(--kt-primary-darker);
+    border: 2px solid var(--kt-primary-lighter);
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
   }
 }
 
-.close-button {
-  margin: 0.4rem;
+.discard-form {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 1rem;
+
+  > * {
+    flex: 1 1 0;
+    border: 0.1rem solid var(--kt-primary-lighter);
+    text-align: center;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    h3 {
+      font-weight: bold;
+    }
+  }
 }
 
-.discard-form {
-  padding: 1rem;
-  border: 1px solid purple;
+.discard-button {
+  width: 100%;
+}
+
+.discard-form-until-offset form {
+  display: flex;
+  flex-direction: column;
+
+  span {
+    margin: 0.5rem 0;
+  }
 }

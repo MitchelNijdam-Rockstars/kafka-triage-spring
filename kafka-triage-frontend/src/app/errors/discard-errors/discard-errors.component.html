@@ -1,7 +1,65 @@
 <div class="discard-title">
-  <h3>Title</h3>
+  <h3>Discard records</h3>
+  <mat-icon>
+    block
+  </mat-icon>
   <button class="close-button" (click)="close()" title="Cancel">&#x2715;</button>
 </div>
+
+<mat-divider></mat-divider>
+
 <div class="discard-form">
-  Form
+  <div class="discard-form-selected">
+    <h3>Selected</h3>
+
+    Discard all currently selected records.
+
+    <button mat-raised-button class="discard-button" color="warn"
+            [disabled]="amountOfSelectedRecords === 0"
+            (click)="discardSelected()">
+      Discard {{ amountOfSelectedRecords }} records
+      <mat-icon>
+        block
+      </mat-icon>
+    </button>
+  </div>
+  <div class="discard-form-current-filter">
+    <h3>All with current filter</h3>
+
+    Discard all records that match the current filter.
+
+    <button mat-raised-button class="discard-button" color="warn"
+            [disabled]="totalRecordsMatchingFilter === 0"
+            (click)="discardAllForCurrentFilter()">
+      Discard {{ totalRecordsMatchingFilter }} records
+      <mat-icon>
+        block
+      </mat-icon>
+    </button>
+  </div>
+  <div class="discard-form-until-offset">
+    <h3>Until offset</h3>
+
+    Discard records up to (and including) a selected offset for a specific topic.
+
+    <form [formGroup]="discardUntilOffsetForm">
+      <span>Topic</span>
+      <select formControlName="topic">
+        <option selected disabled value="">Choose topic</option>
+        <option *ngFor="let topic of topics" [value]="topic">{{ topic }}</option>
+      </select>
+
+      <span>Offset</span>
+      <input type="number" formControlName="offset" placeholder="Offset">
+    </form>
+
+    <button mat-raised-button class="discard-button" color="warn"
+            [disabled]="discardUntilOffsetForm.invalid"
+            (click)="discardUntilOffset()">
+      Discard records
+      <mat-icon>
+        block
+      </mat-icon>
+    </button>
+  </div>
 </div>

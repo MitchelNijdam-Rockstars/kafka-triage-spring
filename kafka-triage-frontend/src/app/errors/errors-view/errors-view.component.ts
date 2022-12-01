@@ -15,6 +15,7 @@ import { ErrorRecordFilterRequest } from "../ErrorRecordFilterRequest";
 import { Pageable } from "../Pageable";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { DiscardErrorsComponent } from "../discard-errors/discard-errors.component";
+import { TopicService } from "../../topics/topic.service";
 
 @Component({
   selector: 'kt-errors-view',
@@ -47,13 +48,13 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private errorService: ErrorRecordService,
+              private topicService: TopicService,
               private toastService: ToastService,
               private modalService: NgbModal,
               private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    //this.openDiscardModal();
     this.dataSource = new ErrorRecordDataSource(this.errorService);
 
     this.route.queryParams
@@ -114,9 +115,25 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
   }
 
   openDiscardModal() {
-    this.modalService.open(DiscardErrorsComponent, {
+    let modal = this.modalService.open(DiscardErrorsComponent, {
       size: 'lg',
       backdrop: 'static',
+    });
+
+    modal.componentInstance.amountOfSelectedRecords = this.selection.selected.length;
+    modal.componentInstance.totalRecordsMatchingFilter = this.dataSource.total;
+
+    // if one option is selected, get the offset and topic from the selected record and set it in the modal
+    if (this.selection.selected.length == 1) {
+      let selectedRecord = this.selection.selected[0];
+      modal.componentInstance.selectedOffset = selectedRecord.offset;
+      modal.componentInstance.selectedTopic = selectedRecord.topic;
+    }
+
+    this.topicService.getTopics().subscribe({
+      next: (topics) => {
+        modal.componentInstance.topics = topics.filter(t => t.lag > 0).map(t => t.name);
+      }
     });
   }
 

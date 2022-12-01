@@ -17,7 +17,7 @@ export class TopicService {
     this.baseUrl = basePath;
   }
 
-  getErrors(): Observable<ErrorTopic[]> {
+  getTopics(): Observable<ErrorTopic[]> {
     return this.http.get<ErrorTopic[]>(this.baseUrl + '/topics/').pipe(
       catchError((error) => {
         console.error(error);
