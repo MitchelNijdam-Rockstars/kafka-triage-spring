@@ -3,7 +3,8 @@
 Triage your failed Kafka messages with this application. View, replay, discard and monitor the
 records published on a Dead Letter ErrorTopic.
 
-<img src="kt-readme.gif">
+![](kt-readme.gif)
+
 ## How does it work?
 
 Kafka triage consumes all records from Dead Letter Topics matching the pattern `.+\.DLT$`. Each
