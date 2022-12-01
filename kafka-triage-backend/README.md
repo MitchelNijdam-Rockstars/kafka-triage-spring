@@ -17,9 +17,9 @@ messages and perform actions on them, like replaying them to the original topic 
     ```
 2. Start the application
     ```bash
-    ./gradlew bootRun
+    ./gradlew bootRun --args='--spring.profiles.active=local'
     ```
-3. Open the application in your browser: [http://localhost:8080](http://localhost:8080)
+3. Request one of the available endpoints: [http://localhost:8029/topics](http://localhost:8082/topics)
 
 ## Manual testing
 
@@ -30,6 +30,8 @@ Produce some messages to the topic `test.DLT`:
 ```bash
 kafkacat -b localhost:29092 -t test.DLT -P
 ```
+
+See them appearing on the endpoint [http://localhost:8029/records](http://localhost:8082/records)
 
 ## PostgresQL
 
@@ -60,10 +62,10 @@ migration before it. The following approach is used.
 1. Disable Flyway migration in Spring by setting the property `spring.flyway.enabled=false`
 2. Start the database
 3. Apply the flyway migration scripts manually
-4. Run `gradle clean build`
+4. Run `./gradlew clean build`
 
 This generates the Java classes, which are committed to Git, so that on production...
 
 **On production environment**
 1. Enable flyway migration in Spring by setting the property `spring.flyway.enabled=true`
-2. When Spring starts it will apply the Flyway migrations (and fail if it errors)
+2. When Spring starts it will apply the Flyway migrations (and fail if there are errors)
