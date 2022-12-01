@@ -39,6 +39,8 @@ npm install
 ng serve
 ```
 
+Now you can access the frontend at http://localhost:4200
+
 ## YouTrack
 
 Login required. [YouTrack link](https://mnijdam.youtrack.cloud/agiles/131-2/current?tab=general).
