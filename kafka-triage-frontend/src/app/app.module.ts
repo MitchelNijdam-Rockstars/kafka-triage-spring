@@ -31,6 +31,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { EnumToStringPipe } from './pipes/enum-to-string.pipe';
 import { A11yModule } from "@angular/cdk/a11y";
 import { MatTooltipModule } from "@angular/material/tooltip";
+import { DiscardErrorsComponent } from './errors/discard-errors/discard-errors.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { MatTooltipModule } from "@angular/material/tooltip";
     ToastComponent,
     FilterBarComponent,
     FilterOptionComponent,
-    EnumToStringPipe
+    EnumToStringPipe,
+    DiscardErrorsComponent
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,7 @@
           refresh
         </mat-icon>
       </button>
-      <button mat-raised-button class="action-button" color="warn" (click)="discardRecords()">
+      <button mat-raised-button class="action-button" color="warn" (click)="openDiscardModal()">
         Discard {{selection.selected.length > 0 ? '(' + selection.selected.length + ')' : ''}}
         <mat-icon>
           block

@@ -1,0 +1,21 @@
+.discard-title {
+  text-align: center;
+  border: 1px solid red;
+
+  h3 {
+    float: left;
+  }
+
+  .close-button {
+    float: right;
+  }
+}
+
+.close-button {
+  margin: 0.4rem;
+}
+
+.discard-form {
+  padding: 1rem;
+  border: 1px solid purple;
+}

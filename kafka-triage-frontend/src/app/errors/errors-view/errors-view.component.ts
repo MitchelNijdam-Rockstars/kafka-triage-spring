@@ -13,6 +13,8 @@ import { merge, tap } from "rxjs";
 import { FilterEvent } from "../../filter/FilterEvent";
 import { ErrorRecordFilterRequest } from "../ErrorRecordFilterRequest";
 import { Pageable } from "../Pageable";
+import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import { DiscardErrorsComponent } from "../discard-errors/discard-errors.component";
 
 @Component({
   selector: 'kt-errors-view',
@@ -46,10 +48,12 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
 
   constructor(private errorService: ErrorRecordService,
               private toastService: ToastService,
+              private modalService: NgbModal,
               private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
+    //this.openDiscardModal();
     this.dataSource = new ErrorRecordDataSource(this.errorService);
 
     this.route.queryParams
@@ -107,6 +111,13 @@ export class ErrorsViewComponent implements OnInit, AfterViewInit {
 
   checkboxLabel(row: ErrorRecord): string {
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.id}`;
+  }
+
+  openDiscardModal() {
+    this.modalService.open(DiscardErrorsComponent, {
+      size: 'lg',
+      backdrop: 'static',
+    });
   }
 
   discardRecords() {
