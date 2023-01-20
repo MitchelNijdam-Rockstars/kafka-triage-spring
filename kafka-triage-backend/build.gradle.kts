@@ -33,6 +33,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.springframework.cloud:spring-cloud-stream")
+    implementation("com.db-objekts:db-objekts-core:0.4.0-alpha")
 
     jooqGenerator("org.postgresql:postgresql")
 
