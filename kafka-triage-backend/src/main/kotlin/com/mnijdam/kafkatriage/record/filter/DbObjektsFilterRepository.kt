@@ -23,25 +23,13 @@ class DbObjektsFilterRepository(private val tm: TransactionManager) : FilterRepo
         val result = tm.newTransaction {
             val query = it.select(ObjektsRecord)
 
-            for (filter in filters) {
-                val op = filter.operation
-                when (filter.key) {
-                    "topic" -> query.where(createCondition(ObjektsRecord.topic, op, filter.value))
-                    "partition" -> query.where(createCondition(ObjektsRecord.partition, op, filter.value.toInt()))
-                    "offset" -> query.where(createCondition(ObjektsRecord.offset, op, filter.value.toLong()))
-                    "timestamp" -> query.where(createCondition(ObjektsRecord.timestamp, op, filter.value.toLong()))
-                    "key" -> query.where(createCondition(ObjektsRecord.key, op, filter.value))
-                    "value" -> query.where(createCondition(ObjektsRecord.value, op, filter.value))
-                    "triaged" -> query.where(createCondition(ObjektsRecord.triaged, op, filter.value.toBoolean()))
-                }
-            }
-
+            filtering(filters, query)
             sortingAndPagination(query, pageable)
 
             query.asList()
         }
 
-        return PageImpl(result.map {
+        val records = result.map {
             Record(
                 it.topic,
                 it.partition,
@@ -52,7 +40,26 @@ class DbObjektsFilterRepository(private val tm: TransactionManager) : FilterRepo
                 emptyList(),
                 it.triaged
             )
-        }, pageable, result.size.toLong())
+        }
+        return PageImpl(records, pageable, result.size.toLong())
+    }
+
+    private fun filtering(
+        filters: List<RecordFilter>,
+        query: SelectStatementExecutor<RecordRow, ResultRow1<RecordRow>>
+    ) {
+        for (filter in filters) {
+            val op = filter.operation
+            when (filter.key) {
+                "topic" -> query.where(createCondition(ObjektsRecord.topic, op, filter.value))
+                "partition" -> query.where(createCondition(ObjektsRecord.partition, op, filter.value.toInt()))
+                "offset" -> query.where(createCondition(ObjektsRecord.offset, op, filter.value.toLong()))
+                "timestamp" -> query.where(createCondition(ObjektsRecord.timestamp, op, filter.value.toLong()))
+                "key" -> query.where(createCondition(ObjektsRecord.key, op, filter.value))
+                "value" -> query.where(createCondition(ObjektsRecord.value, op, filter.value))
+                "triaged" -> query.where(createCondition(ObjektsRecord.triaged, op, filter.value.toBoolean()))
+            }
+        }
     }
 
     private fun sortingAndPagination(
@@ -91,21 +98,14 @@ class DbObjektsFilterRepository(private val tm: TransactionManager) : FilterRepo
 
     private fun toColumn(field: String): Column<out Any?> {
         return when (field) {
-            "topic" -> return ObjektsRecord.topic
-            "partition" -> return ObjektsRecord.partition
-            "offset" -> return ObjektsRecord.offset
-            "timestamp" -> return ObjektsRecord.timestamp
-            "key" -> return ObjektsRecord.key
-            "value" -> return ObjektsRecord.value
-            "triaged" -> return ObjektsRecord.triaged
+            "topic" -> ObjektsRecord.topic
+            "partition" -> ObjektsRecord.partition
+            "offset" -> ObjektsRecord.offset
+            "timestamp" -> ObjektsRecord.timestamp
+            "key" -> ObjektsRecord.key
+            "value" -> ObjektsRecord.value
+            "triaged" -> ObjektsRecord.triaged
             else -> throw IllegalArgumentException("Unknown field: $field")
-        }
-    }
-
-    // TODO: Remove
-    fun test(): List<RecordRow> {
-        return tm.newTransaction {
-            it.select(ObjektsRecord).asList()
         }
     }
 }
