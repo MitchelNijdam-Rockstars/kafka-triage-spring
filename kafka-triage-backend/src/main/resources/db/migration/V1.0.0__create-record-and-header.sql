@@ -2,11 +2,11 @@ create table if not exists record
 (
     id              bigserial primary key not null,
     key             varchar(128),
-    "offset"        int8,
+    "offset"        int8               not null,
     partition       int4               not null,
     replayed_offset int8,
-    timestamp       int8,
-    topic           varchar(128),
+    timestamp       int8               not null,
+    topic           varchar(128)       not null,
     triaged         boolean            not null,
     value           text,
     constraint unique_record unique (topic, partition, "offset")

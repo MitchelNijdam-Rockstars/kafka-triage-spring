@@ -15,10 +15,9 @@ import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.domain.Sort.Direction
-import org.springframework.stereotype.Repository
 
 
-@Repository
+//@Repository TODO: temporarily disabled to test ObjektsDB
 class JOOQFilterRepository(private val jooqDsl: DSLContext) : FilterRepository {
 
     override fun getRecordPage(
